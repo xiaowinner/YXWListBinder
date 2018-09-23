@@ -1,6 +1,14 @@
 PODS:
   - Kiwi (3.0.0)
-  - YXWListBinder (0.1.5)
+  - ReactiveCocoa (2.5):
+    - ReactiveCocoa/UI (= 2.5)
+  - ReactiveCocoa/Core (2.5):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.5)
+  - ReactiveCocoa/UI (2.5):
+    - ReactiveCocoa/Core
+  - YXWListBinder (0.2.0):
+    - ReactiveCocoa (~> 2.5)
 
 DEPENDENCIES:
   - Kiwi
@@ -9,6 +17,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Kiwi
+    - ReactiveCocoa
 
 EXTERNAL SOURCES:
   YXWListBinder:
@@ -16,7 +25,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Kiwi: fbeafef0f00e4d8f7dcb3420a4930afe70af77f7
-  YXWListBinder: 2307845e3a0aabd9211ec8cbe0185b097a9d2196
+  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
+  YXWListBinder: 1bcb28e88230ec0d6cdb6aed29fe05414a52fe04
 
 PODFILE CHECKSUM: 80853a4455b6064660730e51a19f91c2c43d3baa
 

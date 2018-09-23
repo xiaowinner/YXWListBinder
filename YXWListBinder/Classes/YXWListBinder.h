@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <ReactiveObjC/ReactiveObjC.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #import <UIKit/UIKit.h>
 
 #import "YXWListBinderWidgetProtocol.h"
