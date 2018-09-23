@@ -1,6 +1,6 @@
 PODS:
   - Kiwi (3.0.0)
-  - YXWListBinder (0.1.0)
+  - YXWListBinder (0.1.5)
 
 DEPENDENCIES:
   - Kiwi
@@ -16,7 +16,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Kiwi: fbeafef0f00e4d8f7dcb3420a4930afe70af77f7
-  YXWListBinder: e6486b77aabef627e0f34262179b33276d5726e3
+  YXWListBinder: 2307845e3a0aabd9211ec8cbe0185b097a9d2196
 
 PODFILE CHECKSUM: 80853a4455b6064660730e51a19f91c2c43d3baa
 
