@@ -9,7 +9,7 @@
 - 执行pod install.
 
 ### 注意
-0.2.0 依赖的是老版本ReactiveCocoa >= 2.5
+0.2.0 依赖的是老版本ReactiveCocoa >= 2.5，
 0.3.0 之后依赖最新的ReactiveObjC
 
 提示 :)
