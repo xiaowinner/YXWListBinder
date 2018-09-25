@@ -1,29 +1,86 @@
 # YXWListBinder
 
-[![CI Status](https://img.shields.io/travis/原晓文/YXWListBinder.svg?style=flat)](https://travis-ci.org/原晓文/YXWListBinder)
-[![Version](https://img.shields.io/cocoapods/v/YXWListBinder.svg?style=flat)](https://cocoapods.org/pods/YXWListBinder)
-[![License](https://img.shields.io/cocoapods/l/YXWListBinder.svg?style=flat)](https://cocoapods.org/pods/YXWListBinder)
-[![Platform](https://img.shields.io/cocoapods/p/YXWListBinder.svg?style=flat)](https://cocoapods.org/pods/YXWListBinder)
+### 使用
 
-## Example
+只需要进行如下步骤:
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+- Podfile 中输入 pod 'YXWListBinder'
+- 移动YXWListBinder文件夹下的所有文件到你的项目.
+- 执行pod install.
 
-## Requirements
+### 注意
+0.2.0 依赖的是老版本ReactiveCocoa >= 2.5
+0.3.0 之后依赖最新的ReactiveObjC
 
-## Installation
+提示 :)
 
-YXWListBinder is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+- 该项目依赖于ReactCocoa，请在Podfile中添加 pod 'ReactiveObjC'.
 
-```ruby
-pod 'YXWListBinder'
+- 项目中包含Demo.
+
+- 根据自己的需求制定自己的YXWListBinderWidgetProtocol 和 YXWListBinderViewModelProtocol
+
+- Protocol中要有MVVM的绑定机制的方法，如：
+
+```objective-c
+/*
+Cell
+*/
+- (void)bindViewModel:(id<YXWListBinderViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath;
+/*
+ViewModel
+*/
+@required
+- (NSString *)identifier;
+- (CGFloat)widgetHeight;
+
+@optional
+- (NSInteger)gainSubDataCount:(NSInteger)section;
+- (id <YXWListBinderViewModelProtocol>)gainSubData:(NSInteger)index;
 ```
 
-## Author
+- 注意区分以下两个初始化方法：
 
-原晓文, yuanxiao225@icloud.com
+```objective-c
+/*
+根据 nib 注册TableView Cell
+*/
+- (instancetype)initBinder:(UITableView *)tableView
+dataCommand:(RACCommand *)dataCommand
+hasSection:(BOOL)hasSection
+nibsCell:(NSArray *)nibs
+identifiers:(NSArray *)identifiers;
+```
 
-## License
+```objective-c
+/*
+根据 Class name 注册TableView Cell
+*/
+- (instancetype)initBinder:(UITableView *)tableView
+dataCommand:(RACCommand *)dataCommand
+hasSection:(BOOL)hasSection
+cellClassNames:(NSArray *)names
+identifiers:(NSArray *)identifiers;
+```
 
-YXWListBinder is available under the MIT license. See the LICENSE file for more info.
+```objective-c
+/*
+根据 nib 注册CollectionView Item
+*/
+- (instancetype)initBinder:(UICollectionView *)collectionView
+nibsItem:(NSArray *)nibsItem
+itemIdentifiers:(NSArray *)itemIdentifiers
+dataCommand:(RACCommand *)dataCommand;
+```
+
+```objective-c
+/*
+根据 Class name 注册CollectionView Item
+*/
+- (instancetype)initBinder:(UICollectionView *)collectionView
+itemClassNames:(NSArray *)itemClassNames
+itemIdentifiers:(NSArray *)itemIdentifiers
+dataCommand:(RACCommand *)dataCommand;
+```
+
+​
