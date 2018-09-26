@@ -6,13 +6,10 @@
 //  Copyright © 2018年 xiaowinner. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
-#import <UIKit/UIKit.h>
 
 #import "YXWListBinderWidgetProtocol.h"
 #import "YXWListBinderViewModelProtocol.h"
-
 
 /*
  Delegate
