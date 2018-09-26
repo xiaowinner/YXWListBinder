@@ -6,7 +6,6 @@
 //  Copyright © 2018年 xiaowinner. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "YXWListBinderViewModelProtocol.h"
 
 /*

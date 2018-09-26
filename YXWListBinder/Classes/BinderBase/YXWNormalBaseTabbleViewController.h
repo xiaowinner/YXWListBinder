@@ -1,3 +1,5 @@
+#import "YXWListBinder.h"
+
 @interface YXWNormalBaseTabbleViewController : UIViewController
 
 @property (strong, nonatomic) YXWListBinder *tableViewBinder;

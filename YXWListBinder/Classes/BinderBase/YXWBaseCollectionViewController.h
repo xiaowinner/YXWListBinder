@@ -1,3 +1,5 @@
+#import "YXWListBinder.h"
+
 @interface YXWBaseCollectionViewController : UIViewController
 
 @property (strong, nonatomic) YXWListBinder *listBinder;

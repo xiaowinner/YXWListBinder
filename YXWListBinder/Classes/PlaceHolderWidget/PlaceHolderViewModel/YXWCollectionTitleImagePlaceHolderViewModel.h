@@ -1,3 +1,5 @@
+#import "YXWListBinder.h"
+
 @interface YXWCollectionTitleImagePlaceHolderViewModel : NSObject<YXWListBinderViewModelProtocol>
 
 @property (nonatomic, strong) NSString *title;
