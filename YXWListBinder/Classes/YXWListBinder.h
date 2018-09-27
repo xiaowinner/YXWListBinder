@@ -7,7 +7,7 @@
 //
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
-
+#import "NSError+Binder.h"
 #import "YXWListBinderWidgetProtocol.h"
 #import "YXWListBinderViewModelProtocol.h"
 
