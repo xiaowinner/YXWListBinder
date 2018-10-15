@@ -315,6 +315,9 @@ extern NSString *const CHTCollectionElementKindSectionFooter;
  */
 @property (nonatomic, assign) CGFloat minimumContentHeight;
 
+/// The delegate will point to collection view's delegate automatically.
+@property (nonatomic, weak) id <CHTCollectionViewDelegateWaterfallLayout> delegate;
+
 /**
  *  @brief The calculated width of an item in the specified section.
  *  @discussion
