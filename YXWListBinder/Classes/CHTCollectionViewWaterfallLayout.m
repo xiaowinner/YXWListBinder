@@ -8,8 +8,8 @@
 #import "CHTCollectionViewWaterfallLayout.h"
 #import "tgmath.h"
 
-NSString *const CHTCollectionElementKindSectionHeader = @"CHTCollectionElementKindSectionHeader";
-NSString *const CHTCollectionElementKindSectionFooter = @"CHTCollectionElementKindSectionFooter";
+NSString *const CHTCollectionElementKindSectionHeader = @"UICollectionElementKindSectionHeader";
+NSString *const CHTCollectionElementKindSectionFooter = @"UICollectionElementKindSectionFooter";
 
 @interface CHTCollectionViewWaterfallLayout ()
 /// Array to store height for each column
