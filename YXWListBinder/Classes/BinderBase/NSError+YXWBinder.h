@@ -40,7 +40,7 @@ tmp;\
 })\
 
 
-@interface NSError (Binder)
+@interface NSError (YXWBinder)
 
 + (NSError *)initWithMessage:(NSString *)message;
 - (NSString *)errorMsg;

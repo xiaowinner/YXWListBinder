@@ -1,6 +1,6 @@
-#import "NSError+Binder.h"
+#import "NSError+YXWBinder.h"
 
-@implementation NSError (Binder)
+@implementation NSError (YXWBinder)
 
 + (NSError *)initWithMessage:(NSString *)message {
     if (message) {

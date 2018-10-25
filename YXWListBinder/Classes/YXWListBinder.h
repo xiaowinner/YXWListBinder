@@ -7,9 +7,11 @@
 //
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
-#import "NSError+Binder.h"
+#import "NSError+YXWBinder.h"
+#import "UIView+YXWBinder.h"
 #import "YXWListBinderWidgetProtocol.h"
 #import "YXWListBinderViewModelProtocol.h"
+#import "YXWBaseHeaderModel.h"
 
 /*
  Delegate
