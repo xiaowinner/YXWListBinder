@@ -10,7 +10,7 @@
  用于Header ViewModel 或 Model
  */
 
-@protocol YXWListBinderViewModelProtocol <NSObject>
+@protocol YXWListBinderViewModelProtocol
 
 @required
 - (NSString *)identifier;

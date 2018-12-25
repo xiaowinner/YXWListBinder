@@ -12,7 +12,7 @@
  用于Cell Header Footer
  */
 
-@protocol YXWListBinderWidgetProtocol <NSObject>
+@protocol YXWListBinderWidgetProtocol
 
 @required
 - (void)bindViewModel:(id<YXWListBinderViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath;
