@@ -9,7 +9,6 @@
 /*
  用于Header ViewModel 或 Model
  */
-
 @protocol YXWListBinderViewModelProtocol
 
 @required

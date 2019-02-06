@@ -13,8 +13,8 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UICollectionView *collectionView;
 
-@property (nonatomic, assign) BOOL hasSection;
 @property (nonatomic, strong) RACCommand *commend;
+@property (nonatomic, assign) BOOL hasSection;
 
 @end
 
@@ -67,8 +67,6 @@
 - (instancetype)initBinder:(UICollectionView *)collectionView
             itemClassNames:(NSArray *)itemClassNames
           headerClassNames:(NSArray *)headerClassNames
-           itemIdentifiers:(NSArray *)itemIdentifiers
-         headerIdentifiers:(NSArray *)headerIdentifiers
                dataCommand:(RACCommand *)dataCommand {
     
     self = [super init];
@@ -88,16 +86,14 @@
         @weakify(self);
         [headerClassNames enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL * _Nonnull stop) {
             @strongify(self);
-            if (idx < headerIdentifiers.count) {
-                [self.collectionView registerClass:NSClassFromString(name) forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerIdentifiers[idx]];
-            }
+            Class headerClass = NSClassFromString(name);
+            [self.collectionView registerClass:headerClass forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass(headerClass)];
         }];
         
         [itemClassNames enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL * _Nonnull stop) {
             @strongify(self);
-            if (idx < itemIdentifiers.count) {
-                [self.collectionView registerClass:NSClassFromString(name) forCellWithReuseIdentifier:itemIdentifiers[idx]];
-            }
+            Class itemClass = NSClassFromString(name);
+            [self.collectionView registerClass:itemClass forCellWithReuseIdentifier:NSStringFromClass(itemClass)];
         }];
     }
     return self;
@@ -157,8 +153,6 @@
 - (instancetype)initBinder:(UITableView *)tableView
             cellClassNames:(NSArray *)cellClassNames
     headerFooterClassNames:(NSArray *)headerFooterClassNames
-           cellIdentifiers:(NSArray *)cellIdentifiers
-   headerFooterIdentifiers:(NSArray *)headerFooterIdentifiers
                dataCommand:(RACCommand *)dataCommand {
 
     self = [super init];
@@ -186,18 +180,14 @@
         @weakify(self);
         [headerFooterClassNames enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL * _Nonnull stop) {
             @strongify(self);
-            if (idx < headerFooterIdentifiers.count) {
-                [self.tableView registerClass:NSClassFromString(name)
-           forHeaderFooterViewReuseIdentifier:headerFooterIdentifiers[idx]];
-            }
+            Class headerClass = NSClassFromString(name);
+            [self.tableView registerClass:headerClass forHeaderFooterViewReuseIdentifier:NSStringFromClass(headerClass)];
         }];
         
         [cellClassNames enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL * _Nonnull stop) {
             @strongify(self);
-            if (idx < cellIdentifiers.count) {
-                [self.tableView registerClass:NSClassFromString(name) 
-                       forCellReuseIdentifier:cellIdentifiers[idx]];
-            }
+            Class cellClass = NSClassFromString(name);
+            [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
         }];
     }
     return self;
@@ -269,12 +259,12 @@
 - (id<YXWListBinderViewModelProtocol>)gainCurrentViewModel:(NSIndexPath *)indexPath
                                                       type:(YXWLineType)type {
     switch (type) {
-        case IsSection:
+        case LineSection:
         {
             return self.data[indexPath.section];
             break;
         }
-        case IsRow:
+        case LineRow:
         {
             if (self.hasSection) {
                 id <YXWListBinderViewModelProtocol> sectionViewModel = self.data[indexPath.section];
@@ -293,7 +283,7 @@
         return 0;
     }
     switch (type) {
-        case IsSection:
+        case LineSection:
             if (self.hasSection) {
                 return self.data.count;
             }
@@ -301,7 +291,7 @@
                 return 1;
             }
             break;
-        case IsRow:
+        case LineRow:
             if (self.hasSection) {
                 id <YXWListBinderViewModelProtocol> sectionViewModel = self.data[section];
                 return [sectionViewModel gainSubDataCount:section];
@@ -325,7 +315,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     id <YXWListBinderViewModelProtocol> itemViewModel = [self gainCurrentViewModel:indexPath
-                                                                              type:IsRow];
+                                                                              type:LineRow];
     id <YXWListBinderWidgetProtocol> item = [collectionView dequeueReusableCellWithReuseIdentifier:[itemViewModel identifier] forIndexPath:indexPath];
     [item bindViewModel:itemViewModel atIndexPath:indexPath];
     return (UICollectionViewCell *)item;
@@ -334,7 +324,7 @@
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if (self.hasSection) {
-        id <YXWListBinderViewModelProtocol> headerViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForRow:0 inSection:indexPath.section] type:IsSection];
+        id <YXWListBinderViewModelProtocol> headerViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForRow:0 inSection:indexPath.section] type:LineSection];
         id <YXWListBinderWidgetProtocol> header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[headerViewModel identifier] forIndexPath:indexPath];
         [header bindViewModel:headerViewModel atIndexPath:indexPath];
         return (UICollectionReusableView *)header;
@@ -345,12 +335,12 @@
 
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return [self gainCurrentCount:IsSection
+    return [self gainCurrentCount:LineSection
                           section:0];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [self gainCurrentCount:IsRow
+    return [self gainCurrentCount:LineRow
                           section:section];
 }
 
@@ -358,7 +348,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (self.collectionViewDelegate) {
         id <YXWListBinderViewModelProtocol> itemViewModel = [self gainCurrentViewModel:indexPath
-                                                                                  type:IsRow];
+                                                                                  type:LineRow];
         [self.collectionViewDelegate YXWCollectionViewSelected:collectionView indexPath:indexPath model:itemViewModel];
     }
 }
@@ -367,7 +357,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     id <YXWListBinderViewModelProtocol> cellViewModel = [self gainCurrentViewModel:indexPath
-                                                                              type:IsRow];
+                                                                              type:LineRow];
     NSLog(@"%@",cellViewModel.identifier);
     id <YXWListBinderWidgetProtocol> cell =
     [tableView dequeueReusableCellWithIdentifier:[cellViewModel identifier]
@@ -378,7 +368,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (self.hasSection) {
-        id <YXWListBinderViewModelProtocol> headerViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForRow:0 inSection:section] type:IsSection];
+        id <YXWListBinderViewModelProtocol> headerViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForRow:0 inSection:section] type:LineSection];
         
         id <YXWListBinderWidgetProtocol> header =
         [tableView dequeueReusableHeaderFooterViewWithIdentifier:[headerViewModel identifier]];
@@ -392,12 +382,12 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self gainCurrentCount:IsSection
+    return [self gainCurrentCount:LineSection
                           section:0];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self gainCurrentCount:IsRow
+    return [self gainCurrentCount:LineRow
                           section:section];
 }
 
@@ -408,7 +398,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (self.hasSection) {
-        id <YXWListBinderViewModelProtocol> headerViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForRow:0 inSection:section] type:IsSection];
+        id <YXWListBinderViewModelProtocol> headerViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForRow:0 inSection:section] type:LineSection];
         return headerViewModel.widgetHeight;
     }else {
         return 0.01;
@@ -416,7 +406,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    id <YXWListBinderViewModelProtocol> viewModel = [self gainCurrentViewModel:indexPath type:IsRow];
+    id <YXWListBinderViewModelProtocol> viewModel = [self gainCurrentViewModel:indexPath type:LineRow];
     return viewModel.widgetHeight;
 }
 
@@ -426,7 +416,7 @@
 
     if (self.tableViewDelegate) {
         id <YXWListBinderViewModelProtocol> cellViewModel = [self gainCurrentViewModel:indexPath
-                                                                                  type:IsRow];
+                                                                                  type:LineRow];
         [self.tableViewDelegate YXWTableViewSelected:tableView indexPath:indexPath model:cellViewModel];
     }
 }

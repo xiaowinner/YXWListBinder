@@ -11,7 +11,6 @@
 /*
  用于Cell Header Footer
  */
-
 @protocol YXWListBinderWidgetProtocol
 
 @required

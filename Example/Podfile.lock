@@ -1,28 +1,22 @@
 PODS:
-  - ReactiveCocoa (2.5):
-    - ReactiveCocoa/UI (= 2.5)
-  - ReactiveCocoa/Core (2.5):
-    - ReactiveCocoa/no-arc
-  - ReactiveCocoa/no-arc (2.5)
-  - ReactiveCocoa/UI (2.5):
-    - ReactiveCocoa/Core
+  - ReactiveObjC (3.1.0)
   - YXWListBinder (0.2.8):
-    - ReactiveCocoa (~> 2.5)
+    - ReactiveObjC (~> 3.1.0)
 
 DEPENDENCIES:
   - YXWListBinder (from `../`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - ReactiveCocoa
+    - ReactiveObjC
 
 EXTERNAL SOURCES:
   YXWListBinder:
     :path: "../"
 
 SPEC CHECKSUMS:
-  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
-  YXWListBinder: 58f209e26ec79a8824860ef36fefbcfd11dcacbd
+  ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
+  YXWListBinder: 8730c8ce05d6d421fb3d3868199613d7e032d0c2
 
 PODFILE CHECKSUM: 159b375f116d5bb243bf961cff9f71724b2147df
 
