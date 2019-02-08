@@ -1,4 +1,4 @@
-#import "YXWListBinder.h"
+#import "YXWListBinderWidgetProtocol.h"
 
 @interface YXWTitlePlaceHolderCell : UITableViewCell<YXWListBinderWidgetProtocol>
 

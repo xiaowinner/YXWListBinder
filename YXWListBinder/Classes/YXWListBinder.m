@@ -7,6 +7,10 @@
 //
 
 #import "YXWListBinder.h"
+#import "NSError+YXWBinder.h"
+#import "UIView+YXWBinder.h"
+#import "YXWBaseHeaderModel.h"
+#import "YXWBaseViewModel.h"
 
 @interface YXWListBinder() <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource>
 
