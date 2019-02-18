@@ -10,10 +10,8 @@
 
 @implementation NSBundle (YXWBinder)
 
-+ (nonnull NSBundle *)YXWListBinderBundle
-{
++ (nonnull NSBundle *)YXWListBinderBundle {
     return [NSBundle bundleWithURL:[[NSBundle bundleForClass:[YXWListBinder class]] URLForResource:@"YXWListBinder" withExtension:@"bundle"]];
 }
-
 
 @end

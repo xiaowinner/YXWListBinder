@@ -18,7 +18,7 @@
 
 - (void)bindViewModel:(id<YXWListBinderViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath {
     
-    YXWTitleImagePlaceHolderViewModel *model = viewModel;
+    YXWTitleImagePlaceHolderViewModel *model = (YXWTitleImagePlaceHolderViewModel *)viewModel;
     if (model) {
         if (model.title && ![model.title isEqualToString:@""]) {
             self.titleLabel.text = model.title;

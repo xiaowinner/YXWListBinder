@@ -6,17 +6,13 @@
 //  Copyright © 2018年 xiaowinner. All rights reserved.
 //
 
-#import <ReactiveCocoa/ReactiveCocoa.h>
-#import "NSError+YXWBinder.h"
-#import "UIView+YXWBinder.h"
-#import "YXWListBinderWidgetProtocol.h"
+#import <ReactiveObjC/ReactiveObjC.h>
 #import "YXWListBinderViewModelProtocol.h"
-#import "YXWBaseHeaderModel.h"
+#import "YXWListBinderWidgetProtocol.h"
 
 /*
  Delegate
  */
-
 @protocol YXWListBinderTableViewDelegate <NSObject>
 
 - (void)YXWTableViewSelected:(UITableView *)tableView
@@ -48,7 +44,7 @@ typedef void(^YXWListViewScrollOffsetBlock)(CGPoint offset);
 typedef void(^YXWListRefreshSuccessBlock)(void);
 
 /*
- 每次请求失败的Blcok
+ 每次请求失败的Blcoki
  */
 typedef void(^YXWListRefreshErrorBlock)(NSError *error);
 
@@ -61,8 +57,8 @@ typedef void(^YXWListRefreshCustomBlock)(void);
  当前TableView这一行的类型
  */
 typedef NS_ENUM(NSInteger,YXWLineType) {
-    IsSection = 1,
-    IsRow = 2
+    LineSection = 1,
+    LineRow = 2
 };
 
 #pragma mark UITableView
@@ -83,8 +79,6 @@ typedef NS_ENUM(NSInteger,YXWLineType) {
 - (instancetype)initBinder:(UITableView *)tableView
             cellClassNames:(NSArray *)cellClassNames
     headerFooterClassNames:(NSArray *)headerFooterClassNames
-           cellIdentifiers:(NSArray *)cellIdentifiers
-   headerFooterIdentifiers:(NSArray *)headerFooterIdentifiers
                dataCommand:(RACCommand *)dataCommand;
 
 
@@ -108,8 +102,6 @@ typedef NS_ENUM(NSInteger,YXWLineType) {
 - (instancetype)initBinder:(UICollectionView *)collectionView
             itemClassNames:(NSArray *)itemClassNames
           headerClassNames:(NSArray *)headerClassNames
-           itemIdentifiers:(NSArray *)itemIdentifiers
-         headerIdentifiers:(NSArray *)headerIdentifiers
                dataCommand:(RACCommand *)dataCommand;
 
 
