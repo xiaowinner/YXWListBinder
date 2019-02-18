@@ -83,4 +83,47 @@ itemIdentifiers:(NSArray *)itemIdentifiers
 dataCommand:(RACCommand *)dataCommand;
 ```
 
-​
+### 概念
+我们大多数构建页面 基本都可以使用TableView 或者 CollectionView来实现，binder的意义在于使用mvvm模式开发，更注重在viewmodel的数据流的控制来拼装页面的子视图，把viewcontroller只是作为一个通道。
+
+
+一个简单的collection页面搭建
+1.创建控制器 继承自YXWBaseCollectionViewController。
+2.初始化控制器对应的viewmodel。
+3.注册页面要展示的cell
+   如：
+  ```
+  NSArray *cellNibs = @[
+  [UICollectionViewCell nibFromModule]
+  ];
+  
+  NSArray *cellIdentifiers = @[
+  [UICollectionViewCell className]
+  ];
+  
+  NSArray *headerNibs = @[
+  [UICollectionViewHeader nibFromModule]
+  ];
+  
+  NSArray *headerIdentifiers = @[
+  [UICollectionViewHeader className]
+  ];
+  
+  self.listBinder = [[YXWListBinder alloc] initBinder:self.collectionView
+  nibsItem:cellNibs
+  nibHeaders:headerNibs
+  itemIdentifiers:cellIdentifiers
+  headerIdentifiers:headerIdentifiers
+  dataCommand:self.viewModel.dataCommand];
+ ```
+ 4.重写requestAndCombinedData，给Viewmodel的默认请求command传参数。
+ ```
+ - (void)requestAndCombinedData {
+    RACTuple *tuple = [RACTuple tupleWithObjects:self.category,more,nil];
+    [self.viewModel.dataCommand execute:tuple];
+ }
+```
+
+5.Viewmodel中重写requestData方法组装展示的视图。model的概念就是展示的控件，所以每个model应遵守YXWListBinderViewModelProtocol协议，实现对应控件的identifier方法，widgetHeight方法。
+这样在viewmodel中请求到的model数据塞到数组里时就可以当成一个个需要展示的view塞到了数组中。
+ 
