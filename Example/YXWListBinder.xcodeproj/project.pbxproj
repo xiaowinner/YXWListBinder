@@ -293,18 +293,18 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-YXWListBinder_Example/Pods-YXWListBinder_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/ReactiveObjC/ReactiveObjC.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-YXWListBinder_Example/Pods-YXWListBinder_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ReactiveCocoa/ReactiveCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/YXWListBinder/YXWListBinder.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveObjC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YXWListBinder.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YXWListBinder_Example/Pods-YXWListBinder_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YXWListBinder_Example/Pods-YXWListBinder_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F7A68FF1269DA56B35B593E4 /* [CP] Check Pods Manifest.lock */ = {
