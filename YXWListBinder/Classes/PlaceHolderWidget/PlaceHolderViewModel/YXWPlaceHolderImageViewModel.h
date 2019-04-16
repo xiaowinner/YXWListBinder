@@ -1,0 +1,17 @@
+//
+//  YXWPlaceHolderImageViewModel.h
+//  AFNetworking
+//
+//  Created by 原晓文 on 2019/3/29.
+//
+
+#import <Foundation/Foundation.h>
+#import "YXWListBinderViewModelProtocol.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface YXWPlaceHolderImageViewModel : NSObject<YXWListBinderViewModelProtocol>
+
+@end
+
+NS_ASSUME_NONNULL_END

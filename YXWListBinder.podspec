@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YXWListBinder'
-  s.version          = '0.2.9'
+  s.version          = '0.2.10'
   s.summary          = 'List binder.'
 
 # This description is used to generate tags and improve search results.

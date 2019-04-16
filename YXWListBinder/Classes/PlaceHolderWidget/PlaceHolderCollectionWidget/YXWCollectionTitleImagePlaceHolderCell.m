@@ -28,6 +28,9 @@
         if (model.imageName) {
             self.contentImageView.image = [UIImage imageNamed:model.imageName];
         }
+        if (model.image) {
+            self.contentImageView.image = model.image;
+        }
     }
 }
 

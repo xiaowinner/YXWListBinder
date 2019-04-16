@@ -1,4 +1,4 @@
-#import "YXWListBinder.h"
+#import "YXWListBinderViewModelProtocol.h"
 
 @interface YXWTitlePlaceHolderViewModel : NSObject<YXWListBinderViewModelProtocol>
 
