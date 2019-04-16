@@ -11,6 +11,7 @@
 #import "UIView+YXWBinder.h"
 #import "YXWBaseHeaderModel.h"
 #import "YXWBaseViewModel.h"
+#import "YXWListBinderKit.h"
 
 @interface YXWListBinder() <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -19,6 +20,13 @@
 
 @property (nonatomic, strong) RACCommand *commend;
 @property (nonatomic, assign) BOOL hasSection;
+
+@property (nonatomic, copy) NSArray *tableViewPlaceHolderCells;
+@property (nonatomic, copy) NSArray *tableViewPlaceHolderHeaders;
+
+@property (nonatomic, copy) NSArray *tableViewPlaceHolderCellNames;
+@property (nonatomic, copy) NSArray *tableViewPlaceHolderHeaderNames;
+
 
 @end
 
@@ -136,6 +144,7 @@
             
         }
         
+        //外部控件注册
         @weakify(self);
         [nibHeaderFooters enumerateObjectsUsingBlock:^(UINib *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             @strongify(self);
@@ -149,6 +158,21 @@
             if (idx < cellIdentifiers.count) {
                 [self.tableView registerNib:obj
                      forCellReuseIdentifier:cellIdentifiers[idx]];
+            }
+        }];
+        
+        //内部控件注册
+        [self.tableViewPlaceHolderHeaders enumerateObjectsUsingBlock:^(UINib *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            @strongify(self);
+            if (idx < self.tableViewPlaceHolderHeaderNames.count) {
+                [self.tableView registerNib:obj forHeaderFooterViewReuseIdentifier:self.tableViewPlaceHolderHeaderNames[idx]];
+            }
+        }];
+        
+        [self.tableViewPlaceHolderCells enumerateObjectsUsingBlock:^(UINib *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            @strongify(self);
+            if (idx < self.tableViewPlaceHolderCellNames.count) {
+                [self.tableView registerNib:obj forCellReuseIdentifier:self.tableViewPlaceHolderCellNames[idx]];
             }
         }];
     }
@@ -182,6 +206,7 @@
             // Fallback on earlier versions
         }
         
+        //外部
         @weakify(self);
         [headerFooterClassNames enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL * _Nonnull stop) {
             @strongify(self);
@@ -190,6 +215,19 @@
         }];
         
         [cellClassNames enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL * _Nonnull stop) {
+            @strongify(self);
+            Class cellClass = NSClassFromString(name);
+            [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
+        }];
+        
+        //内部
+        [self.tableViewPlaceHolderHeaderNames enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL * _Nonnull stop) {
+            @strongify(self);
+            Class headerClass = NSClassFromString(name);
+            [self.tableView registerClass:headerClass forHeaderFooterViewReuseIdentifier:NSStringFromClass(headerClass)];
+        }];
+        
+        [self.tableViewPlaceHolderCellNames enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL * _Nonnull stop) {
             @strongify(self);
             Class cellClass = NSClassFromString(name);
             [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
@@ -439,6 +477,48 @@
         _needAnimation = NO;
     }
     return _needAnimation;
+}
+
+- (NSArray *)tableViewPlaceHolderCells {
+    if (!_tableViewPlaceHolderCells) {
+        _tableViewPlaceHolderCells = @[
+                                       [YXWTitleImagePlaceHolderCell nibFromYXWListBinder],
+                                       [YXWPlaceHolderImageCell nibFromYXWListBinder],
+                                       [YXWTitlePlaceHolderCell nibFromYXWListBinder],
+                                       [YXWWhitePlaceHolderCell nibFromYXWListBinder],
+                                       ];
+    }
+    return _tableViewPlaceHolderCells;
+}
+
+- (NSArray *)tableViewPlaceHolderHeaders {
+    if (!_tableViewPlaceHolderHeaders) {
+        _tableViewPlaceHolderHeaders = @[
+                                         [YXWPlaceHolderHeaderView nibFromYXWListBinder],
+                                         ];
+    }
+    return _tableViewPlaceHolderHeaders;
+}
+
+- (NSArray *)tableViewPlaceHolderCellNames {
+    if (!_tableViewPlaceHolderCellNames) {
+        _tableViewPlaceHolderCellNames = @[
+                                           @"YXWTitleImagePlaceHolderCell",
+                                           @"YXWPlaceHolderImageCell",
+                                           @"YXWTitlePlaceHolderCell",
+                                           @"YXWWhitePlaceHolderCell",
+                                           ];
+    }
+    return _tableViewPlaceHolderCellNames;
+}
+
+- (NSArray *)tableViewPlaceHolderHeaderNames {
+    if (!_tableViewPlaceHolderHeaderNames) {
+        _tableViewPlaceHolderHeaderNames = @[
+                                           @"YXWPlaceHolderHeaderView",
+                                           ];
+    }
+    return _tableViewPlaceHolderHeaderNames;
 }
 
 @end

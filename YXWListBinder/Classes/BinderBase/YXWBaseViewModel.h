@@ -10,6 +10,7 @@
 #import "YXWTitleImagePlaceHolderCell.h"
 #import "YXWTitlePlaceHolderCell.h"
 #import "YXWPlaceHolderHeaderView.h"
+#import "YXWPlaceHolderImageCell.h"
 #import "YXWWhitePlaceHolderCell.h"
 #import "YXWCollectionTitleImagePlaceHolderCell.h"
 #import "YXWCollectionPlaceHolderHeaderView.h"

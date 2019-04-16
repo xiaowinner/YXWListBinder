@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="YXWCollectionTitleImagePlaceHolderCell" id="gTV-IL-0wX" customClass="YXWCollectionTitleImagePlaceHolderCell">
-            <rect key="frame" x="0.0" y="0.0" width="403" height="251"/>
+            <rect key="frame" x="0.0" y="0.0" width="403" height="406"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="403" height="251"/>
+                <rect key="frame" x="0.0" y="0.0" width="403" height="406"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ktO-1q-vwV">
-                        <rect key="frame" x="0.0" y="0.0" width="403" height="251"/>
+                        <rect key="frame" x="0.0" y="0.0" width="403" height="406"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gzK-50-Qu8">
-                                <rect key="frame" x="121" y="53" width="161" height="95"/>
+                                <rect key="frame" x="80.5" y="41.5" width="242" height="242"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="gzK-50-Qu8" secondAttribute="height" multiplier="1.7:1" id="aGJ-0o-gBJ"/>
+                                    <constraint firstAttribute="width" secondItem="gzK-50-Qu8" secondAttribute="height" multiplier="1:1" id="aGJ-0o-gBJ"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂时没有数据哦" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qhq-Sg-hB0">
-                                <rect key="frame" x="8" y="161" width="387" height="20"/>
+                                <rect key="frame" x="8" y="296.5" width="387" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -38,7 +38,7 @@
                         <constraints>
                             <constraint firstItem="qhq-Sg-hB0" firstAttribute="top" secondItem="gzK-50-Qu8" secondAttribute="bottom" constant="13" id="980-I6-4Iz"/>
                             <constraint firstItem="qhq-Sg-hB0" firstAttribute="leading" secondItem="ktO-1q-vwV" secondAttribute="leading" constant="8" id="MYl-SJ-KEs"/>
-                            <constraint firstItem="gzK-50-Qu8" firstAttribute="width" secondItem="ktO-1q-vwV" secondAttribute="width" multiplier="0.4" id="UTO-oF-4Cb"/>
+                            <constraint firstItem="gzK-50-Qu8" firstAttribute="width" secondItem="ktO-1q-vwV" secondAttribute="width" multiplier="0.6" id="UTO-oF-4Cb"/>
                             <constraint firstAttribute="trailing" secondItem="qhq-Sg-hB0" secondAttribute="trailing" constant="8" id="fAA-7U-AHZ"/>
                             <constraint firstItem="gzK-50-Qu8" firstAttribute="centerY" secondItem="ktO-1q-vwV" secondAttribute="centerY" multiplier="0.8" id="hcS-xb-Oqq"/>
                             <constraint firstItem="gzK-50-Qu8" firstAttribute="centerX" secondItem="ktO-1q-vwV" secondAttribute="centerX" id="z2h-fz-s3Y"/>
@@ -53,12 +53,12 @@
                 <constraint firstAttribute="trailing" secondItem="ktO-1q-vwV" secondAttribute="trailing" id="hOi-LO-hKr"/>
                 <constraint firstItem="ktO-1q-vwV" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="pLg-e3-DwF"/>
             </constraints>
-            <size key="customSize" width="403" height="251"/>
+            <size key="customSize" width="403" height="406"/>
             <connections>
                 <outlet property="contentImageView" destination="gzK-50-Qu8" id="yDm-By-fZj"/>
                 <outlet property="titleLabel" destination="qhq-Sg-hB0" id="ofw-DC-2gB"/>
             </connections>
-            <point key="canvasLocation" x="12.5" y="141.5"/>
+            <point key="canvasLocation" x="12" y="71.064467766116948"/>
         </collectionViewCell>
     </objects>
 </document>
