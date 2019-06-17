@@ -82,6 +82,15 @@ typedef NS_ENUM(NSInteger,YXWLineType) {
                dataCommand:(RACCommand *)dataCommand;
 
 
+/*
+ 根据name或者nib注册Cell
+ */
+- (instancetype)initBinder:(UITableView *)tableView
+                     cells:(NSArray *)cells
+             headerFooters:(NSArray *)headerFooters
+           cellIdentifiers:(NSArray *)cellIdentifiers
+   headerFooterIdentifiers:(NSArray *)headerFooterIdentifiers
+               dataCommand:(RACCommand *)dataCommand;
 
 
 #pragma mark UICollectionView

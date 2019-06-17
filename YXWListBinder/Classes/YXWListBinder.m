@@ -235,6 +235,76 @@
     }
     return self;
 }
+    
+    
+- (instancetype)initBinder:(UITableView *)tableView
+                     cells:(NSArray *)cells
+             headerFooters:(NSArray *)headerFooters
+           cellIdentifiers:(NSArray *)cellIdentifiers
+   headerFooterIdentifiers:(NSArray *)headerFooterIdentifiers
+               dataCommand:(RACCommand *)dataCommand {
+    self = [super init];
+    if (self) {
+        if (headerFooters) {
+            _hasSection = YES;
+        }else {
+            _hasSection = NO;
+        }
+        _tableView = tableView;
+        _commend = dataCommand;
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.estimatedRowHeight = 0;
+        _tableView.estimatedSectionHeaderHeight = 0;
+        _tableView.estimatedSectionFooterHeight = 0;
+        if (@available(iOS 11.0, *)) {
+            _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        //外部
+        @weakify(self);
+        [headerFooters enumerateObjectsUsingBlock:^(id headerFooter, NSUInteger idx, BOOL * _Nonnull stop) {
+            @strongify(self);
+            if ([headerFooter isKindOfClass:[NSString class]]) {
+                Class headerClass = NSClassFromString(headerFooter);
+                [self.tableView registerClass:headerClass forHeaderFooterViewReuseIdentifier:NSStringFromClass(headerClass)];
+            }else if ([headerFooter isKindOfClass:[UINib class]]) {
+                if (idx < headerFooterIdentifiers.count) {
+                    [self.tableView registerNib:(UINib *)headerFooter forHeaderFooterViewReuseIdentifier:headerFooterIdentifiers[idx]];
+                }
+            }
+        }];
+        
+        [cells enumerateObjectsUsingBlock:^(id cell, NSUInteger idx, BOOL * _Nonnull stop) {
+            @strongify(self);
+            if ([cell isKindOfClass:[NSString class]]) {
+                Class cellClass = NSClassFromString(cell);
+                [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
+            }else if ([cell isKindOfClass:[UINib class]]) {
+                if (idx < cellIdentifiers.count) {
+                    [self.tableView registerNib:cell
+                         forCellReuseIdentifier:cellIdentifiers[idx]];
+                }
+            }
+        }];
+        
+        //内部
+        [self.tableViewPlaceHolderHeaderNames enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL * _Nonnull stop) {
+            @strongify(self);
+            Class headerClass = NSClassFromString(name);
+            [self.tableView registerClass:headerClass forHeaderFooterViewReuseIdentifier:NSStringFromClass(headerClass)];
+        }];
+
+        [self.tableViewPlaceHolderCellNames enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL * _Nonnull stop) {
+            @strongify(self);
+            Class cellClass = NSClassFromString(name);
+            [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
+        }];
+    }
+    return self;
+}
 
 
 #pragma mark Util Method

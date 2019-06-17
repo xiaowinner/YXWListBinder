@@ -22,6 +22,12 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		AF5E639822B765E300B10A08 /* YXWViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AF5E639722B765E300B10A08 /* YXWViewModel.m */; };
+		AF5E639C22B7666A00B10A08 /* YXWNibTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AF5E639A22B7666A00B10A08 /* YXWNibTableViewCell.m */; };
+		AF5E63A022B7667B00B10A08 /* YXWClassTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AF5E639F22B7667B00B10A08 /* YXWClassTableViewCell.m */; };
+		AF5E63A422B7674F00B10A08 /* YXWClassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AF5E63A322B7674F00B10A08 /* YXWClassModel.m */; };
+		AF5E63A722B7675A00B10A08 /* YXWNibModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AF5E63A622B7675A00B10A08 /* YXWNibModel.m */; };
+		AF5E63A822B76B6C00B10A08 /* YXWNibTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF5E639B22B7666A00B10A08 /* YXWNibTableViewCell.xib */; };
 		CFC13AF8E06C1C144A215982 /* Pods_YXWListBinder_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A38B0078F49EC0308F6AF671 /* Pods_YXWListBinder_Example.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +68,17 @@
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8F43B8C9325F784004048E3E /* YXWListBinder.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = YXWListBinder.podspec; path = ../YXWListBinder.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A38B0078F49EC0308F6AF671 /* Pods_YXWListBinder_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YXWListBinder_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF5E639622B765E300B10A08 /* YXWViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXWViewModel.h; sourceTree = "<group>"; };
+		AF5E639722B765E300B10A08 /* YXWViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXWViewModel.m; sourceTree = "<group>"; };
+		AF5E639922B7666A00B10A08 /* YXWNibTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXWNibTableViewCell.h; sourceTree = "<group>"; };
+		AF5E639A22B7666A00B10A08 /* YXWNibTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXWNibTableViewCell.m; sourceTree = "<group>"; };
+		AF5E639B22B7666A00B10A08 /* YXWNibTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YXWNibTableViewCell.xib; sourceTree = "<group>"; };
+		AF5E639E22B7667A00B10A08 /* YXWClassTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXWClassTableViewCell.h; sourceTree = "<group>"; };
+		AF5E639F22B7667B00B10A08 /* YXWClassTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXWClassTableViewCell.m; sourceTree = "<group>"; };
+		AF5E63A222B7674F00B10A08 /* YXWClassModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXWClassModel.h; sourceTree = "<group>"; };
+		AF5E63A322B7674F00B10A08 /* YXWClassModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXWClassModel.m; sourceTree = "<group>"; };
+		AF5E63A522B7675A00B10A08 /* YXWNibModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXWNibModel.h; sourceTree = "<group>"; };
+		AF5E63A622B7675A00B10A08 /* YXWNibModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXWNibModel.m; sourceTree = "<group>"; };
 		B86E34FCF51515DA1C99273B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		BEE3A26105C6232E116542AB /* Pods-YXWListBinder_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YXWListBinder_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YXWListBinder_Example/Pods-YXWListBinder_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,11 +145,19 @@
 		6003F593195388D20070C39A /* Example for YXWListBinder */ = {
 			isa = PBXGroup;
 			children = (
+				AF5E63A122B7673B00B10A08 /* Model */,
 				6003F59C195388D20070C39A /* YXWAppDelegate.h */,
 				6003F59D195388D20070C39A /* YXWAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* YXWViewController.h */,
 				6003F5A6195388D20070C39A /* YXWViewController.m */,
+				AF5E639622B765E300B10A08 /* YXWViewModel.h */,
+				AF5E639722B765E300B10A08 /* YXWViewModel.m */,
+				AF5E639922B7666A00B10A08 /* YXWNibTableViewCell.h */,
+				AF5E639A22B7666A00B10A08 /* YXWNibTableViewCell.m */,
+				AF5E639B22B7666A00B10A08 /* YXWNibTableViewCell.xib */,
+				AF5E639E22B7667A00B10A08 /* YXWClassTableViewCell.h */,
+				AF5E639F22B7667B00B10A08 /* YXWClassTableViewCell.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
@@ -188,6 +213,17 @@
 				7A60DC96249CA916BD50ED18 /* Pods-YXWListBinder_Example.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		AF5E63A122B7673B00B10A08 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AF5E63A222B7674F00B10A08 /* YXWClassModel.h */,
+				AF5E63A322B7674F00B10A08 /* YXWClassModel.m */,
+				AF5E63A522B7675A00B10A08 /* YXWNibModel.h */,
+				AF5E63A622B7675A00B10A08 /* YXWNibModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,6 +286,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -269,6 +306,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF5E63A822B76B6C00B10A08 /* YXWNibTableViewCell.xib in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
@@ -333,6 +371,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* YXWAppDelegate.m in Sources */,
+				AF5E639822B765E300B10A08 /* YXWViewModel.m in Sources */,
+				AF5E63A722B7675A00B10A08 /* YXWNibModel.m in Sources */,
+				AF5E63A422B7674F00B10A08 /* YXWClassModel.m in Sources */,
+				AF5E639C22B7666A00B10A08 /* YXWNibTableViewCell.m in Sources */,
+				AF5E63A022B7667B00B10A08 /* YXWClassTableViewCell.m in Sources */,
 				6003F5A7195388D20070C39A /* YXWViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
