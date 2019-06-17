@@ -290,17 +290,19 @@
             }
         }];
         
-        //内部
-        [self.tableViewPlaceHolderHeaderNames enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL * _Nonnull stop) {
+        //内部控件注册
+        [self.tableViewPlaceHolderHeaders enumerateObjectsUsingBlock:^(UINib *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             @strongify(self);
-            Class headerClass = NSClassFromString(name);
-            [self.tableView registerClass:headerClass forHeaderFooterViewReuseIdentifier:NSStringFromClass(headerClass)];
+            if (idx < self.tableViewPlaceHolderHeaderNames.count) {
+                [self.tableView registerNib:obj forHeaderFooterViewReuseIdentifier:self.tableViewPlaceHolderHeaderNames[idx]];
+            }
         }];
-
-        [self.tableViewPlaceHolderCellNames enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        [self.tableViewPlaceHolderCells enumerateObjectsUsingBlock:^(UINib *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             @strongify(self);
-            Class cellClass = NSClassFromString(name);
-            [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
+            if (idx < self.tableViewPlaceHolderCellNames.count) {
+                [self.tableView registerNib:obj forCellReuseIdentifier:self.tableViewPlaceHolderCellNames[idx]];
+            }
         }];
     }
     return self;
