@@ -18,8 +18,8 @@
     [super setSelected:selected animated:animated];
 }
     
-- (void)bindViewModel:(id<YXWListBinderViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath {
-        
-}
+//- (void)bindViewModel:(id<YXWListBinderViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath {
+//        
+//}
 
 @end

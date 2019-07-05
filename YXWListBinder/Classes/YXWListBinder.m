@@ -432,7 +432,10 @@
     id <YXWListBinderViewModelProtocol> itemViewModel = [self gainCurrentViewModel:indexPath
                                                                               type:LineRow];
     id <YXWListBinderWidgetProtocol> item = [collectionView dequeueReusableCellWithReuseIdentifier:[itemViewModel identifier] forIndexPath:indexPath];
-    [item bindViewModel:itemViewModel atIndexPath:indexPath];
+    SEL sel = NSSelectorFromString(@"bindViewModel");
+    if ([self respondsToSelector:sel]) {
+        [item bindViewModel:itemViewModel atIndexPath:indexPath];
+    }
     return (UICollectionViewCell *)item;
 }
 
@@ -441,7 +444,10 @@
     if (self.hasSection) {
         id <YXWListBinderViewModelProtocol> headerViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForRow:0 inSection:indexPath.section] type:LineSection];
         id <YXWListBinderWidgetProtocol> header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[headerViewModel identifier] forIndexPath:indexPath];
-        [header bindViewModel:headerViewModel atIndexPath:indexPath];
+        SEL sel = NSSelectorFromString(@"bindViewModel");
+        if ([self respondsToSelector:sel]) {
+            [header bindViewModel:headerViewModel atIndexPath:indexPath];
+        }
         return (UICollectionReusableView *)header;
     }else {
         return nil;
@@ -461,7 +467,7 @@
 
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.collectionViewDelegate) {
+    if (self.collectionViewDelegate && [self.collectionViewDelegate respondsToSelector:@selector(YXWCollectionViewSelected:indexPath:model:)]) {
         id <YXWListBinderViewModelProtocol> itemViewModel = [self gainCurrentViewModel:indexPath
                                                                                   type:LineRow];
         [self.collectionViewDelegate YXWCollectionViewSelected:collectionView indexPath:indexPath model:itemViewModel];
@@ -476,19 +482,22 @@
     id <YXWListBinderWidgetProtocol> cell =
     [tableView dequeueReusableCellWithIdentifier:[cellViewModel identifier]
                                     forIndexPath:indexPath];
-    [cell bindViewModel:cellViewModel atIndexPath:indexPath];
+    SEL sel = NSSelectorFromString(@"bindViewModel");
+    if ([self respondsToSelector:sel]) {
+        [cell bindViewModel:cellViewModel atIndexPath:indexPath];
+    }
     return (UITableViewCell *)cell;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (self.hasSection) {
         id <YXWListBinderViewModelProtocol> headerViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForRow:0 inSection:section] type:LineSection];
-        
         id <YXWListBinderWidgetProtocol> header =
         [tableView dequeueReusableHeaderFooterViewWithIdentifier:[headerViewModel identifier]];
-        
-        [header bindViewModel:headerViewModel atIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
-        
+        SEL sel = NSSelectorFromString(@"bindViewModel");
+        if ([self respondsToSelector:sel]) {
+            [header bindViewModel:headerViewModel atIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
+        }
         return (UITableViewHeaderFooterView *)header;
     }else {
         return nil;
@@ -527,8 +536,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-    if (self.tableViewDelegate) {
+    if (self.tableViewDelegate && [self.tableViewDelegate respondsToSelector:@selector(YXWTableViewSelected:indexPath:model:)]) {
         id <YXWListBinderViewModelProtocol> cellViewModel = [self gainCurrentViewModel:indexPath
                                                                                   type:LineRow];
         [self.tableViewDelegate YXWTableViewSelected:tableView indexPath:indexPath model:cellViewModel];
