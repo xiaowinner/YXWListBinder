@@ -15,18 +15,54 @@
  */
 @protocol YXWListBinderTableViewDelegate <NSObject>
 
-- (void)YXWTableViewSelected:(UITableView *)tableView
-                   indexPath:(NSIndexPath*)indexPath
-                       model:(id<YXWListBinderViewModelProtocol>)model;
+- (void)YXWTableViewSelected:(UITableView *_Nullable)tableView
+                   indexPath:(NSIndexPath *_Nullable)indexPath
+                       model:(id<YXWListBinderViewModelProtocol> _Nullable)model;
 
 @end
 
 
 @protocol YXWListBinderCollectionViewDelegate <NSObject>
 
-- (void)YXWCollectionViewSelected:(UICollectionView *)collectionView
-                        indexPath:(NSIndexPath*)indexPath
-                            model:(id<YXWListBinderViewModelProtocol>)model;
+- (void)YXWCollectionViewSelected:(UICollectionView *_Nullable)collectionView
+                        indexPath:(NSIndexPath *_Nullable)indexPath
+                            model:(id<YXWListBinderViewModelProtocol> _Nullable)model;
+
+@end
+
+
+/*
+ ScrollView Delegate
+ */
+@protocol YXWListBinderScrollViewDelegate <NSObject>
+
+@optional
+
+- (void)YXWScrollViewDidScroll:(UIScrollView *_Nullable)scrollView;
+
+- (void)YXWScrollViewDidZoom:(UIScrollView *_Nullable)scrollView;
+
+- (void)YXWScrollViewWillBeginDragging:(UIScrollView *_Nullable)scrollView;
+
+- (void)YXWScrollViewWillEndDragging:(UIScrollView *_Nullable)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *_Nullable)targetContentOffset;
+
+- (void)YXWScrollViewDidEndDragging:(UIScrollView *_Nullable)scrollView willDecelerate:(BOOL)decelerate;
+
+- (void)YXWScrollViewWillBeginDecelerating:(UIScrollView *_Nullable)scrollView;
+
+- (void)YXWScrollViewDidEndDecelerating:(UIScrollView *_Nullable)scrollView;
+
+- (void)YXWScrollViewDidEndScrollingAnimation:(UIScrollView *_Nullable)scrollView;
+
+- (UIView *_Nullable)YXWViewForZoomingInScrollView:(UIScrollView *_Nullable)scrollView;
+
+- (void)YXWScrollViewWillBeginZooming:(UIScrollView *_Nullable)scrollView withView:(nullable UIView *)view;
+
+- (void)YXWScrollViewDidEndZooming:(UIScrollView *_Nullable)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale;
+
+- (BOOL)YXWScrollViewShouldScrollToTop:(UIScrollView *_Nullable)scrollView;
+
+- (void)YXWScrollViewDidScrollToTop:(UIScrollView *_Nullable)scrollView;
 
 @end
 
@@ -46,7 +82,7 @@ typedef void(^YXWListRefreshSuccessBlock)(void);
 /*
  每次请求失败的Blcoki
  */
-typedef void(^YXWListRefreshErrorBlock)(NSError *error);
+typedef void(^YXWListRefreshErrorBlock)(NSError * _Nullable error);
 
 /*
  不使用默认刷新，自定义刷新机制
@@ -66,31 +102,31 @@ typedef NS_ENUM(NSInteger,YXWLineType) {
 /*
  根据nib注册Cell
  */
-- (instancetype)initBinder:(UITableView *)tableView
-                  nibsCell:(NSArray *)nibsCell
-          nibHeaderFooters:(NSArray *)nibHeaderFooters
-           cellIdentifiers:(NSArray *)cellIdentifiers
-   headerFooterIdentifiers:(NSArray *)headerFooterIdentifiers
-               dataCommand:(RACCommand *)dataCommand;
+- (instancetype _Nullable )initBinder:(UITableView *_Nullable)tableView
+                             nibsCell:(NSArray *_Nullable)nibsCell
+                     nibHeaderFooters:(NSArray *_Nullable)nibHeaderFooters
+                      cellIdentifiers:(NSArray *_Nullable)cellIdentifiers
+              headerFooterIdentifiers:(NSArray *_Nullable)headerFooterIdentifiers
+                          dataCommand:(RACCommand *_Nullable)dataCommand;
 
 /*
  根据name注册Cell
  */
-- (instancetype)initBinder:(UITableView *)tableView
-            cellClassNames:(NSArray *)cellClassNames
-    headerFooterClassNames:(NSArray *)headerFooterClassNames
-               dataCommand:(RACCommand *)dataCommand;
+- (instancetype _Nullable )initBinder:(UITableView *_Nullable)tableView
+                       cellClassNames:(NSArray *_Nullable)cellClassNames
+               headerFooterClassNames:(NSArray *_Nullable)headerFooterClassNames
+                          dataCommand:(RACCommand *_Nullable)dataCommand;
 
 
 /*
  根据name或者nib注册Cell
  */
-- (instancetype)initBinder:(UITableView *)tableView
-                     cells:(NSArray *)cells
-             headerFooters:(NSArray *)headerFooters
-           cellIdentifiers:(NSArray *)cellIdentifiers
-   headerFooterIdentifiers:(NSArray *)headerFooterIdentifiers
-               dataCommand:(RACCommand *)dataCommand;
+- (instancetype _Nullable )initBinder:(UITableView *_Nullable)tableView
+                                cells:(NSArray *_Nullable)cells
+                        headerFooters:(NSArray *_Nullable)headerFooters
+                      cellIdentifiers:(NSArray *_Nullable)cellIdentifiers
+              headerFooterIdentifiers:(NSArray *_Nullable)headerFooterIdentifiers
+                          dataCommand:(RACCommand *_Nullable)dataCommand;
 
 
 #pragma mark UICollectionView
@@ -98,45 +134,47 @@ typedef NS_ENUM(NSInteger,YXWLineType) {
 /*
  根据nib注册Item
  */
-- (instancetype)initBinder:(UICollectionView *)collectionView
-                  nibsItem:(NSArray *)nibsItem
-                nibHeaders:(NSArray *)nibHeaders
-           itemIdentifiers:(NSArray *)itemIdentifiers
-         headerIdentifiers:(NSArray *)headerIdentifiers
-               dataCommand:(RACCommand *)dataCommand;
+- (instancetype _Nullable)initBinder:(UICollectionView *_Nullable)collectionView
+                            nibsItem:(NSArray *_Nullable)nibsItem
+                          nibHeaders:(NSArray *_Nullable)nibHeaders
+                     itemIdentifiers:(NSArray *_Nullable)itemIdentifiers
+                   headerIdentifiers:(NSArray *_Nullable)headerIdentifiers
+                         dataCommand:(RACCommand *_Nullable)dataCommand;
 
 /*
  根据name注册Item
  */
-- (instancetype)initBinder:(UICollectionView *)collectionView
-            itemClassNames:(NSArray *)itemClassNames
-          headerClassNames:(NSArray *)headerClassNames
-               dataCommand:(RACCommand *)dataCommand;
+- (instancetype _Nullable )initBinder:(UICollectionView *_Nullable)collectionView
+                       itemClassNames:(NSArray *_Nullable)itemClassNames
+                     headerClassNames:(NSArray *_Nullable)headerClassNames
+                          dataCommand:(RACCommand *_Nullable)dataCommand;
 
 
 /*
  添加TableView数据获取机制以及成功和失败的监听
  */
-- (void)addTableViewDatasSubscribe:(YXWListRefreshSuccessBlock)success errorSubcribe:(YXWListRefreshErrorBlock)errorSubcribe;
+- (void)addTableViewDatasSubscribe:(YXWListRefreshSuccessBlock _Nullable )success errorSubcribe:(YXWListRefreshErrorBlock _Nullable )errorSubcribe;
 
 /*
  添加CollectionView数据获取机制以及成功和失败的监听
  */
-- (void)addCollectionViewDatasSubscribe:(YXWListRefreshSuccessBlock)successBlock errorSubcribe:(YXWListRefreshErrorBlock)errorSubcribe;
+- (void)addCollectionViewDatasSubscribe:(YXWListRefreshSuccessBlock _Nullable )successBlock errorSubcribe:(YXWListRefreshErrorBlock _Nullable )errorSubcribe;
 
 
 /*
  滑动值的 Block
  */
-@property (nonatomic, copy) YXWListViewScrollOffsetBlock offsetBlock;
+@property (nonatomic, copy) YXWListViewScrollOffsetBlock _Nullable offsetBlock;
 
-@property (nonatomic, copy) YXWListRefreshCustomBlock customRefreshBlock;
+@property (nonatomic, copy) YXWListRefreshCustomBlock _Nullable customRefreshBlock;
 
-@property (nonatomic, weak) id<YXWListBinderTableViewDelegate> tableViewDelegate;
+@property (nonatomic, weak) id<YXWListBinderTableViewDelegate> _Nullable tableViewDelegate;
 
-@property (nonatomic, weak) id<YXWListBinderCollectionViewDelegate> collectionViewDelegate;
+@property (nonatomic, weak) id<YXWListBinderCollectionViewDelegate> _Nullable collectionViewDelegate;
 
-@property (nonatomic, copy) NSArray *data;
+@property (nonatomic, weak) id<YXWListBinderScrollViewDelegate> _Nullable scrollViewDelegate;
+
+@property (nonatomic, copy) NSArray * _Nullable data;
 
 @property (nonatomic, assign) BOOL needAnimation;
 

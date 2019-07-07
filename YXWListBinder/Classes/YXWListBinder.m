@@ -7,11 +7,10 @@
 //
 
 #import "YXWListBinder.h"
+#import "YXWListBinderKit.h"
+
 #import "NSError+YXWBinder.h"
 #import "UIView+YXWBinder.h"
-#import "YXWBaseHeaderModel.h"
-#import "YXWBaseViewModel.h"
-#import "YXWListBinderKit.h"
 
 @interface YXWListBinder() <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -27,9 +26,7 @@
 @property (nonatomic, copy) NSArray *tableViewPlaceHolderCellNames;
 @property (nonatomic, copy) NSArray *tableViewPlaceHolderHeaderNames;
 
-
 @end
-
 
 @implementation YXWListBinder
 
@@ -44,7 +41,6 @@
     
     self = [super init];
     if (self) {
-        
         if (nibHeaders) {
             _hasSection = YES;
         }else {
@@ -80,7 +76,6 @@
             itemClassNames:(NSArray *)itemClassNames
           headerClassNames:(NSArray *)headerClassNames
                dataCommand:(RACCommand *)dataCommand {
-    
     self = [super init];
     if (self) {
         
@@ -120,7 +115,6 @@
            cellIdentifiers:(NSArray *)cellIdentifiers
    headerFooterIdentifiers:(NSArray *)headerFooterIdentifiers
                dataCommand:(RACCommand *)dataCommand {
-    
     self = [super init];
     if (self) {
         
@@ -183,7 +177,6 @@
             cellClassNames:(NSArray *)cellClassNames
     headerFooterClassNames:(NSArray *)headerFooterClassNames
                dataCommand:(RACCommand *)dataCommand {
-
     self = [super init];
     if (self) {
         
@@ -420,9 +413,88 @@
 
 
 #pragma mark ScrollViewDelegate
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (self.offsetBlock) {
         self.offsetBlock(scrollView.contentOffset);
+    }else if (self.scrollViewDelegate && [self.scrollViewDelegate respondsToSelector:@selector(YXWScrollViewDidScroll:)]) {
+        [self.scrollViewDelegate YXWScrollViewDidScroll:scrollView];
+    }
+}
+
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView {
+    if (self.scrollViewDelegate && [self.scrollViewDelegate respondsToSelector:@selector(YXWScrollViewDidZoom:)]) {
+        [self.scrollViewDelegate YXWScrollViewDidZoom:scrollView];
+    }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if (self.scrollViewDelegate && [self.scrollViewDelegate respondsToSelector:@selector(YXWScrollViewWillBeginDragging:)]) {
+        [self.scrollViewDelegate YXWScrollViewWillBeginDragging:scrollView];
+    }
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    if (self.scrollViewDelegate && [self.scrollViewDelegate respondsToSelector:@selector(YXWScrollViewWillEndDragging:withVelocity:targetContentOffset:)]) {
+        [self.scrollViewDelegate YXWScrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (self.scrollViewDelegate && [self.scrollViewDelegate respondsToSelector:@selector(YXWScrollViewDidEndDragging:willDecelerate:)]) {
+        [self.scrollViewDelegate YXWScrollViewDidEndDragging:scrollView willDecelerate:decelerate];
+    }
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+    if (self.scrollViewDelegate && [self.scrollViewDelegate respondsToSelector:@selector(YXWScrollViewWillBeginDecelerating:)]) {
+        [self.scrollViewDelegate YXWScrollViewWillBeginDecelerating:scrollView];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (self.scrollViewDelegate && [self.scrollViewDelegate respondsToSelector:@selector(YXWScrollViewDidEndDecelerating:)]) {
+        [self.scrollViewDelegate YXWScrollViewDidEndDecelerating:scrollView];
+    }
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    if (self.scrollViewDelegate && [self.scrollViewDelegate respondsToSelector:@selector(YXWScrollViewDidEndScrollingAnimation:)]) {
+        [self.scrollViewDelegate YXWScrollViewDidEndScrollingAnimation:scrollView];
+    }
+}
+
+- (nullable UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    if (self.scrollViewDelegate && [self.scrollViewDelegate respondsToSelector:@selector(YXWViewForZoomingInScrollView:)]) {
+        return [self.scrollViewDelegate YXWViewForZoomingInScrollView:scrollView];
+    }else {
+        return nil;
+    }
+}
+
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view {
+    if (self.scrollViewDelegate && [self.scrollViewDelegate respondsToSelector:@selector(YXWScrollViewWillBeginZooming:withView:)]) {
+        [self.scrollViewDelegate YXWScrollViewWillBeginZooming:scrollView withView:view];
+    }
+}
+
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale {
+    if (self.scrollViewDelegate && [self.scrollViewDelegate respondsToSelector:@selector(YXWScrollViewDidEndZooming:withView:atScale:)]) {
+        [self.scrollViewDelegate YXWScrollViewDidEndZooming:scrollView withView:view atScale:scale];
+    }
+}
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+    if (self.scrollViewDelegate && [self.scrollViewDelegate respondsToSelector:@selector(YXWScrollViewShouldScrollToTop:)]) {
+        return [self.scrollViewDelegate YXWScrollViewShouldScrollToTop:scrollView];
+    }else {
+        return YES;
+    }
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    if (self.scrollViewDelegate && [self.scrollViewDelegate respondsToSelector:@selector(YXWScrollViewDidScrollToTop:)]) {
+        [self.scrollViewDelegate YXWScrollViewDidScrollToTop:scrollView];
     }
 }
 
@@ -432,7 +504,10 @@
     id <YXWListBinderViewModelProtocol> itemViewModel = [self gainCurrentViewModel:indexPath
                                                                               type:LineRow];
     id <YXWListBinderWidgetProtocol> item = [collectionView dequeueReusableCellWithReuseIdentifier:[itemViewModel identifier] forIndexPath:indexPath];
-    [item bindViewModel:itemViewModel atIndexPath:indexPath];
+    SEL bindSel = @selector(bindViewModel:atIndexPath:);
+    if ([(UICollectionViewCell *)item respondsToSelector:bindSel]) {
+        [item bindViewModel:itemViewModel atIndexPath:indexPath];
+    }
     return (UICollectionViewCell *)item;
 }
 
@@ -441,7 +516,10 @@
     if (self.hasSection) {
         id <YXWListBinderViewModelProtocol> headerViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForRow:0 inSection:indexPath.section] type:LineSection];
         id <YXWListBinderWidgetProtocol> header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[headerViewModel identifier] forIndexPath:indexPath];
-        [header bindViewModel:headerViewModel atIndexPath:indexPath];
+        SEL bindSel = @selector(bindViewModel:atIndexPath:);
+        if ([(UICollectionReusableView *)header respondsToSelector:bindSel]) {
+            [header bindViewModel:headerViewModel atIndexPath:indexPath];
+        }
         return (UICollectionReusableView *)header;
     }else {
         return nil;
@@ -461,7 +539,7 @@
 
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.collectionViewDelegate) {
+    if (self.collectionViewDelegate && [self.collectionViewDelegate respondsToSelector:@selector(YXWCollectionViewSelected:indexPath:model:)]) {
         id <YXWListBinderViewModelProtocol> itemViewModel = [self gainCurrentViewModel:indexPath
                                                                                   type:LineRow];
         [self.collectionViewDelegate YXWCollectionViewSelected:collectionView indexPath:indexPath model:itemViewModel];
@@ -476,19 +554,22 @@
     id <YXWListBinderWidgetProtocol> cell =
     [tableView dequeueReusableCellWithIdentifier:[cellViewModel identifier]
                                     forIndexPath:indexPath];
-    [cell bindViewModel:cellViewModel atIndexPath:indexPath];
+    SEL bindSel = @selector(bindViewModel:atIndexPath:);
+    if ([(UITableViewCell *)cell respondsToSelector:bindSel]) {
+        [cell bindViewModel:cellViewModel atIndexPath:indexPath];
+    }
     return (UITableViewCell *)cell;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (self.hasSection) {
         id <YXWListBinderViewModelProtocol> headerViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForRow:0 inSection:section] type:LineSection];
-        
         id <YXWListBinderWidgetProtocol> header =
         [tableView dequeueReusableHeaderFooterViewWithIdentifier:[headerViewModel identifier]];
-        
-        [header bindViewModel:headerViewModel atIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
-        
+        SEL bindSel = @selector(bindViewModel:atIndexPath:);
+        if ([(UITableViewHeaderFooterView *)header respondsToSelector:bindSel]) {
+            [header bindViewModel:headerViewModel atIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
+        }
         return (UITableViewHeaderFooterView *)header;
     }else {
         return nil;
@@ -527,8 +608,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-    if (self.tableViewDelegate) {
+    if (self.tableViewDelegate && [self.tableViewDelegate respondsToSelector:@selector(YXWTableViewSelected:indexPath:model:)]) {
         id <YXWListBinderViewModelProtocol> cellViewModel = [self gainCurrentViewModel:indexPath
                                                                                   type:LineRow];
         [self.tableViewDelegate YXWTableViewSelected:tableView indexPath:indexPath model:cellViewModel];

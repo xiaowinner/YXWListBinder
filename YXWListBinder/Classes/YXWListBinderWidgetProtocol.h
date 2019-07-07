@@ -13,7 +13,7 @@
  */
 @protocol YXWListBinderWidgetProtocol
 
-@required
+@optional
 - (void)bindViewModel:(id<YXWListBinderViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath;
 
 @end
