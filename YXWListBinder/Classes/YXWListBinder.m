@@ -543,7 +543,13 @@
     NSAssert([self judgeSelector:@selector(identifier) object:itemViewModel], @"model的identifier参数不正确,model:%@",itemViewModel);
     id <YXWListBinderWidgetProtocol> item = [collectionView dequeueReusableCellWithReuseIdentifier:[itemViewModel identifier] forIndexPath:indexPath];
     SEL bindSel = @selector(bindViewModel:atIndexPath:);
-    if ([(UICollectionViewCell *)item respondsToSelector:bindSel]) {
+    SEL bindExtSel = @selector(bindViewModel:atIndexPath:first:finally:);
+
+    if ([(UICollectionView *)item respondsToSelector:bindExtSel]) {
+        BOOL first = indexPath.row == 0 ? : NO;
+        BOOL last = [self gainLastJudgeWithIndexPath:indexPath type:LineRow];
+        [item bindViewModel:itemViewModel atIndexPath:indexPath first:first finally:last];
+    }else if ([(UICollectionViewCell *)item respondsToSelector:bindSel]) {
         [item bindViewModel:itemViewModel atIndexPath:indexPath];
     }
     return (UICollectionViewCell *)item;
@@ -581,6 +587,14 @@
         id <YXWListBinderViewModelProtocol> itemViewModel = [self gainCurrentViewModel:indexPath
                                                                                   type:LineRow];
         [self.collectionViewDelegate YXWCollectionViewSelected:collectionView indexPath:indexPath model:itemViewModel];
+    }else {
+        id <YXWListBinderWidgetProtocol> cell = [collectionView cellForItemAtIndexPath:indexPath];
+        if ([(NSObject *)cell respondsToSelector:@selector(didSelectedCell:collectionView:atIndexPath:first:finally:)]) {
+            id <YXWListBinderViewModelProtocol> model = [self gainCurrentViewModel:indexPath type:LineRow];
+            BOOL first = indexPath.row == 0 ? : NO;
+            BOOL last = [self gainLastJudgeWithIndexPath:indexPath type:LineRow];
+            [cell didSelectedCell:model collectionView:collectionView atIndexPath:indexPath first:first finally:last];
+        }
     }
 }
 
@@ -588,7 +602,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SEL bindSel = @selector(bindViewModel:atIndexPath:);
-    SEL bindExtSel = @selector(bindViewModel:atIndexPath:finally:);
+    SEL bindExtSel = @selector(bindViewModel:atIndexPath:first:finally:);
 
     id <YXWListBinderViewModelProtocol> cellViewModel = [self gainCurrentViewModel:indexPath
                                                                               type:LineRow];
@@ -598,7 +612,8 @@
                                     forIndexPath:indexPath];
     if ([(UITableViewCell *)cell respondsToSelector:bindExtSel]) {
         BOOL last = [self gainLastJudgeWithIndexPath:indexPath type:LineRow];
-        [cell bindViewModel:cellViewModel atIndexPath:indexPath finally:last];
+        BOOL first = indexPath.row == 0 ? : NO;
+        [cell bindViewModel:cellViewModel atIndexPath:indexPath first:first finally:last];
     }else if ([(UITableViewCell *)cell respondsToSelector:bindSel]) {
         [cell bindViewModel:cellViewModel atIndexPath:indexPath];
     }
@@ -659,10 +674,11 @@
         [self.tableViewDelegate YXWTableViewSelected:tableView indexPath:indexPath model:cellViewModel];
     }else {
         id <YXWListBinderWidgetProtocol> cell = [tableView cellForRowAtIndexPath:indexPath];
-        if ([(NSObject *)cell respondsToSelector:@selector(didSelectedCell:tableView:atIndexPath:finally:)]) {
+        if ([(NSObject *)cell respondsToSelector:@selector(didSelectedCell:tableView:atIndexPath:first:finally:)]) {
             BOOL last = [self gainLastJudgeWithIndexPath:indexPath type:LineRow];
             id <YXWListBinderViewModelProtocol> model = [self gainCurrentViewModel:indexPath type:LineRow];
-            [cell didSelectedCell:model tableView:tableView atIndexPath:indexPath finally:last];
+            BOOL first = indexPath.row == 0 ? : NO;
+            [cell didSelectedCell:model tableView:tableView atIndexPath:indexPath first:first finally:last];
         }
     }
 }

@@ -26,14 +26,27 @@
  */
 - (void)bindViewModel:(id<YXWListBinderViewModelProtocol>)viewModel
           atIndexPath:(NSIndexPath *)indexPath
+                first:(BOOL)first
               finally:(BOOL)finally;
 
 /*
+ UITableView
  点击cell事件,如果控制器的点击delegate不实现的话，则执行该方法
  */
 - (void)didSelectedCell:(id<YXWListBinderViewModelProtocol>)viewModel
               tableView:(UITableView *)tableView
             atIndexPath:(NSIndexPath *)indexPath
+                  first:(BOOL)first
+                finally:(BOOL)finally;
+
+/*
+ UICollectionView
+ 点击cell事件,如果控制器的点击delegate不实现的话，则执行该方法
+ */
+- (void)didSelectedCell:(id<YXWListBinderViewModelProtocol>)viewModel
+         collectionView:(UICollectionView *)collectionView
+            atIndexPath:(NSIndexPath *)indexPath
+                  first:(BOOL)first
                 finally:(BOOL)finally;
 
 @end
