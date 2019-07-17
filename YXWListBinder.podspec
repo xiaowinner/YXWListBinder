@@ -8,14 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YXWListBinder'
-  s.version          = '0.2.16'
+  s.version          = '0.2.17'
   s.summary          = 'List binder.'
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
 TODO: Add long description of the pod here.
@@ -34,10 +28,6 @@ TODO: Add long description of the pod here.
       'YXWListBinder' => ['YXWListBinder/Assets/**']
   }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'CHTCollectionViewWaterfallLayout'
-  # s.prefix_header_contents = '#import "YXWListBinder.h"'
   s.dependency 'ReactiveCocoa', '~> 2.5'
 
 end

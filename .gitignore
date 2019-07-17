@@ -19,3 +19,4 @@ DerivedData
 infer-out/
 xcodebuild.log
 Pods/
+.DS_Store

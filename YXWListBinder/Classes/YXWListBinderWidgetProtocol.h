@@ -14,6 +14,26 @@
 @protocol YXWListBinderWidgetProtocol
 
 @optional
-- (void)bindViewModel:(id<YXWListBinderViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath;
+/*
+ 数据绑定
+ */
+- (void)bindViewModel:(id<YXWListBinderViewModelProtocol>)viewModel
+          atIndexPath:(NSIndexPath *)indexPath;
+
+/*
+ 数据绑定
+ finally是否是当前section中最后一个model
+ */
+- (void)bindViewModel:(id<YXWListBinderViewModelProtocol>)viewModel
+          atIndexPath:(NSIndexPath *)indexPath
+              finally:(BOOL)finally;
+
+/*
+ 点击cell事件,如果控制器的点击delegate不实现的话，则执行该方法
+ */
+- (void)didSelectedCell:(id<YXWListBinderViewModelProtocol>)viewModel
+              tableView:(UITableView *)tableView
+            atIndexPath:(NSIndexPath *)indexPath
+                finally:(BOOL)finally;
 
 @end

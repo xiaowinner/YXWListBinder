@@ -304,11 +304,9 @@
 
 #pragma mark Util Method
 - (void)addTableViewDatasSubscribe:(YXWListRefreshSuccessBlock)successBlock errorSubcribe:(YXWListRefreshErrorBlock)errorSubcribe {
-    
     if (!self.commend) {
         return;
     }
-    
     @weakify(self);
     [self.commend.executionSignals subscribeNext:^(RACSignal *execution) {
         [[[execution dematerialize] deliverOnMainThread]
@@ -329,15 +327,12 @@
              }
          }];
     }];
-    
 }
 
 - (void)addCollectionViewDatasSubscribe:(YXWListRefreshSuccessBlock)successBlock errorSubcribe:(YXWListRefreshErrorBlock)errorSubcribe {
-    
     if (!self.commend) {
         return;
     }
-
     @weakify(self);
     [self.commend.executionSignals subscribeNext:^(RACSignal *execution) {
         [[[execution dematerialize] deliverOnMainThread]
@@ -358,32 +353,74 @@
              }
          }];
     }];
-    
 }
 
+- (BOOL)judgeSelector:(SEL)selector object:(NSObject *)object {
+    if ([object respondsToSelector:selector]) {
+        return YES;
+    }else {
+        return NO;
+    }
+}
 
 #pragma mark About UICollectionView && TableView Method
 
-- (id<YXWListBinderViewModelProtocol>)gainCurrentViewModel:(NSIndexPath *)indexPath
-                                                      type:(YXWLineType)type {
+- (BOOL)gainLastJudgeWithIndexPath:(NSIndexPath *)indexPath type:(YXWLineType)type {
+    SEL headerCountSel = @selector(gainSubDataCount:);
     switch (type) {
         case LineSection:
         {
-            return self.data[indexPath.section];
+            if (indexPath.section == self.data.count - 1) {
+                return YES;
+            }
             break;
         }
         case LineRow:
         {
             if (self.hasSection) {
                 id <YXWListBinderViewModelProtocol> sectionViewModel = self.data[indexPath.section];
-                return [sectionViewModel gainSubData:indexPath.row];
+                if ([(NSObject *)sectionViewModel respondsToSelector:headerCountSel]) {
+                    NSInteger lastCount = [sectionViewModel gainSubDataCount:indexPath.section];
+                    if (indexPath.row == lastCount - 1) {
+                        return YES;
+                    }
+                }
             }else {
-                id <YXWListBinderViewModelProtocol> rowViewModel = self.data[indexPath.row];
-                return rowViewModel;
+                if (indexPath.row == self.data.count - 1) {
+                    return YES;
+                }
             }
             break;
         }
     }
+    return NO;
+}
+
+- (id<YXWListBinderViewModelProtocol>)gainCurrentViewModel:(NSIndexPath *)indexPath
+                                                      type:(YXWLineType)type {
+    SEL headerDataSel = @selector(gainSubData:);
+    id <YXWListBinderViewModelProtocol> model = nil;
+    switch (type) {
+        case LineSection:
+        {
+            model = self.data[indexPath.section];
+            break;
+        }
+        case LineRow:
+        {
+            if (self.hasSection) {
+                id <YXWListBinderViewModelProtocol> sectionViewModel = self.data[indexPath.section];
+                if ([(NSObject *)sectionViewModel respondsToSelector:headerDataSel]) {
+                    model = [sectionViewModel gainSubData:indexPath.row];
+                }
+            }else {
+                model = self.data[indexPath.row];
+            }
+            break;
+        }
+    }
+    NSAssert(model != nil, @"数组中的model为空,IndexPath:%@",indexPath);
+    return model;
 }
 
 - (NSInteger)gainCurrentCount:(YXWLineType)type section:(NSInteger)section {
@@ -503,6 +540,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     id <YXWListBinderViewModelProtocol> itemViewModel = [self gainCurrentViewModel:indexPath
                                                                               type:LineRow];
+    NSAssert([self judgeSelector:@selector(identifier) object:itemViewModel], @"model的identifier参数不正确,model:%@",itemViewModel);
     id <YXWListBinderWidgetProtocol> item = [collectionView dequeueReusableCellWithReuseIdentifier:[itemViewModel identifier] forIndexPath:indexPath];
     SEL bindSel = @selector(bindViewModel:atIndexPath:);
     if ([(UICollectionViewCell *)item respondsToSelector:bindSel]) {
@@ -549,13 +587,19 @@
 #pragma mark UITableViewDelegate & DataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    SEL bindSel = @selector(bindViewModel:atIndexPath:);
+    SEL bindExtSel = @selector(bindViewModel:atIndexPath:finally:);
+
     id <YXWListBinderViewModelProtocol> cellViewModel = [self gainCurrentViewModel:indexPath
                                                                               type:LineRow];
+    NSAssert([self judgeSelector:@selector(identifier) object:cellViewModel], @"model的identifier参数不正确,model:%@",cellViewModel);
     id <YXWListBinderWidgetProtocol> cell =
     [tableView dequeueReusableCellWithIdentifier:[cellViewModel identifier]
                                     forIndexPath:indexPath];
-    SEL bindSel = @selector(bindViewModel:atIndexPath:);
-    if ([(UITableViewCell *)cell respondsToSelector:bindSel]) {
+    if ([(UITableViewCell *)cell respondsToSelector:bindExtSel]) {
+        BOOL last = [self gainLastJudgeWithIndexPath:indexPath type:LineRow];
+        [cell bindViewModel:cellViewModel atIndexPath:indexPath finally:last];
+    }else if ([(UITableViewCell *)cell respondsToSelector:bindSel]) {
         [cell bindViewModel:cellViewModel atIndexPath:indexPath];
     }
     return (UITableViewCell *)cell;
@@ -564,6 +608,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (self.hasSection) {
         id <YXWListBinderViewModelProtocol> headerViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForRow:0 inSection:section] type:LineSection];
+        NSAssert([self judgeSelector:@selector(identifier) object:headerViewModel], @"model的identifier参数不正确,model:%@",headerViewModel);
         id <YXWListBinderWidgetProtocol> header =
         [tableView dequeueReusableHeaderFooterViewWithIdentifier:[headerViewModel identifier]];
         SEL bindSel = @selector(bindViewModel:atIndexPath:);
@@ -612,6 +657,13 @@
         id <YXWListBinderViewModelProtocol> cellViewModel = [self gainCurrentViewModel:indexPath
                                                                                   type:LineRow];
         [self.tableViewDelegate YXWTableViewSelected:tableView indexPath:indexPath model:cellViewModel];
+    }else {
+        id <YXWListBinderWidgetProtocol> cell = [tableView cellForRowAtIndexPath:indexPath];
+        if ([(NSObject *)cell respondsToSelector:@selector(didSelectedCell:tableView:atIndexPath:finally:)]) {
+            BOOL last = [self gainLastJudgeWithIndexPath:indexPath type:LineRow];
+            id <YXWListBinderViewModelProtocol> model = [self gainCurrentViewModel:indexPath type:LineRow];
+            [cell didSelectedCell:model tableView:tableView atIndexPath:indexPath finally:last];
+        }
     }
 }
 
@@ -667,8 +719,8 @@
 - (NSArray *)tableViewPlaceHolderHeaderNames {
     if (!_tableViewPlaceHolderHeaderNames) {
         _tableViewPlaceHolderHeaderNames = @[
-                                           @"YXWPlaceHolderHeaderView",
-                                           ];
+                                             @"YXWPlaceHolderHeaderView",
+                                             ];
     }
     return _tableViewPlaceHolderHeaderNames;
 }
