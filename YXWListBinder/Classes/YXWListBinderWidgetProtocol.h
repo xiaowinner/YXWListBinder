@@ -40,6 +40,23 @@
                 finally:(BOOL)finally;
 
 /*
+ UITableView
+ Cell即将显示
+ */
+- (void)willDisplayCell:(UITableView *)tableView
+              viewModel:(id<YXWListBinderViewModelProtocol>)viewModel
+              indexPath:(NSIndexPath *)indexPath;
+
+/*
+ UITableView
+ Cell消失
+ */
+- (void)didEndDisplayingCell:(UITableView *)tableView
+                   viewModel:(id<YXWListBinderViewModelProtocol>)viewModel
+                   indexPath:(NSIndexPath *)indexPath;
+
+
+/*
  UICollectionView
  点击cell事件,如果控制器的点击delegate不实现的话，则执行该方法
  */
@@ -48,5 +65,6 @@
             atIndexPath:(NSIndexPath *)indexPath
                   first:(BOOL)first
                 finally:(BOOL)finally;
+
 
 @end

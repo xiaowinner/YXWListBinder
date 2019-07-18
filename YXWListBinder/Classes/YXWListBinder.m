@@ -683,6 +683,22 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([cell respondsToSelector:@selector(willDisplayCell:viewModel:indexPath:)]) {
+        id <YXWListBinderWidgetProtocol> listCell = cell;
+        id <YXWListBinderViewModelProtocol> model = [self gainCurrentViewModel:indexPath type:LineRow];
+        [listCell willDisplayCell:tableView viewModel:model indexPath:indexPath];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([cell respondsToSelector:@selector(didEndDisplayingCell:viewModel:indexPath:)]) {
+        id <YXWListBinderWidgetProtocol> listCell = cell;
+        id <YXWListBinderViewModelProtocol> model = [self gainCurrentViewModel:indexPath type:LineRow];
+        [listCell didEndDisplayingCell:tableView viewModel:model indexPath:indexPath];
+    }
+}
+
 #pragma mark Lazy init
 
 - (NSArray *)data {
