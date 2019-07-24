@@ -694,8 +694,7 @@
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([cell respondsToSelector:@selector(didEndDisplayingCell:viewModel:indexPath:)]) {
         id <YXWListBinderWidgetProtocol> listCell = cell;
-        id <YXWListBinderViewModelProtocol> model = [self gainCurrentViewModel:indexPath type:LineRow];
-        [listCell didEndDisplayingCell:tableView viewModel:model indexPath:indexPath];
+        [listCell didEndDisplayingCell:tableView viewModel:nil indexPath:indexPath];
     }
 }
 

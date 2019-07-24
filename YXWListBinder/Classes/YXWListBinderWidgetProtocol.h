@@ -50,6 +50,7 @@
 /*
  UITableView
  Cell消失
+ viewModel 为nil 暂不在EndDisplay中暴漏
  */
 - (void)didEndDisplayingCell:(UITableView *)tableView
                    viewModel:(id<YXWListBinderViewModelProtocol>)viewModel
