@@ -16,11 +16,12 @@
 }
 
 - (id <YXWListBinderViewModelProtocol>)gainSubData:(NSInteger)index {
-    if (index >= self.subData.count) {
-        NSLog(@"Error:获取subData 越界");
-    }
+    NSAssert(index < self.subData.count, @"Error: Header获取subData 越界, index:%ld",index);
     return self.subData[index];
 }
 
+- (void)exchangeViewModelDatas {
+    self.subData = self.subDataCache;
+}
 
 @end

@@ -19,6 +19,7 @@
 @optional
 - (NSInteger)gainSubDataCount:(NSInteger)section;
 - (id <YXWListBinderViewModelProtocol>)gainSubData:(NSInteger)index;
+- (void)exchangeViewModelDatas;
 
 @end
 
