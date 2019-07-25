@@ -80,7 +80,7 @@ typedef void(^YXWListViewScrollOffsetBlock)(CGPoint offset);
 typedef void(^YXWListRefreshSuccessBlock)(void);
 
 /*
- 每次请求失败的Blcoki
+ 每次请求失败的Blcok
  */
 typedef void(^YXWListRefreshErrorBlock)(NSError * _Nullable error);
 
@@ -88,6 +88,7 @@ typedef void(^YXWListRefreshErrorBlock)(NSError * _Nullable error);
  不使用默认刷新，自定义刷新机制
  */
 typedef void(^YXWListRefreshCustomBlock)(void);
+
 
 /*
  当前TableView这一行的类型
@@ -161,7 +162,7 @@ typedef NS_ENUM(NSInteger,YXWLineType) {
 - (void)addCollectionViewDatasSubscribe:(YXWListRefreshSuccessBlock _Nullable )successBlock errorSubcribe:(YXWListRefreshErrorBlock _Nullable )errorSubcribe;
 
 
-/*
+/**
  滑动值的 Block
  */
 @property (nonatomic, copy) YXWListViewScrollOffsetBlock _Nullable offsetBlock;

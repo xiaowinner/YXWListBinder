@@ -26,6 +26,16 @@
 @property (nonatomic, copy) NSArray *tableViewPlaceHolderCellNames;
 @property (nonatomic, copy) NSArray *tableViewPlaceHolderHeaderNames;
 
+/**
+ 请求成功的 Block
+ */
+@property (nonatomic, copy) YXWListRefreshSuccessBlock _Nullable refreshSuccessBlock;
+
+/**
+ 请求失败的 Block
+ */
+@property (nonatomic, copy) YXWListRefreshErrorBlock _Nullable refreshErrorBlock;
+
 @end
 
 @implementation YXWListBinder
@@ -307,6 +317,8 @@
     if (!self.commend) {
         return;
     }
+    self.refreshSuccessBlock = successBlock;
+    self.refreshErrorBlock = errorSubcribe;
     @weakify(self);
     [self.commend.executionSignals subscribeNext:^(RACSignal *execution) {
         [[[execution dematerialize] deliverOnMainThread]
@@ -318,12 +330,12 @@
              }else {
                  [self.tableView reloadData];
              }
-             if (successBlock) {
-                 successBlock();
+             if (self.refreshSuccessBlock) {
+                 self.refreshSuccessBlock();
              }
          } error:^(NSError *error) {
-             if (errorSubcribe) {
-                 errorSubcribe(error);
+             if (self.refreshErrorBlock) {
+                 self.refreshErrorBlock(error);
              }
          }];
     }];
@@ -333,6 +345,8 @@
     if (!self.commend) {
         return;
     }
+    self.refreshSuccessBlock = successBlock;
+    self.refreshErrorBlock = errorSubcribe;
     @weakify(self);
     [self.commend.executionSignals subscribeNext:^(RACSignal *execution) {
         [[[execution dematerialize] deliverOnMainThread]
@@ -344,12 +358,12 @@
              }else {
                  [self.collectionView reloadData];
              }
-             if (successBlock) {
-                 successBlock();
+             if (self.refreshSuccessBlock) {
+                 self.refreshSuccessBlock();
              }
          } error:^(NSError *error) {
-             if (errorSubcribe) {
-                 errorSubcribe(error);
+             if (self.refreshErrorBlock) {
+                 self.refreshErrorBlock(error);
              }
          }];
     }];
