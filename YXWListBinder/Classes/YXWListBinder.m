@@ -334,6 +334,7 @@
                  self.refreshSuccessBlock();
              }
          } error:^(NSError *error) {
+             @strongify(self);
              if (self.refreshErrorBlock) {
                  self.refreshErrorBlock(error);
              }
@@ -362,6 +363,7 @@
                  self.refreshSuccessBlock();
              }
          } error:^(NSError *error) {
+             @strongify(self);
              if (self.refreshErrorBlock) {
                  self.refreshErrorBlock(error);
              }
