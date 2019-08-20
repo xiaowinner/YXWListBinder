@@ -14,13 +14,13 @@
 @protocol YXWListBinderWidgetProtocol
 
 @optional
-/*
+/**
  数据绑定
  */
 - (void)bindViewModel:(id<YXWListBinderViewModelProtocol>)viewModel
           atIndexPath:(NSIndexPath *)indexPath;
 
-/*
+/**
  数据绑定
  finally是否是当前section中最后一个model
  */
@@ -29,7 +29,7 @@
                 first:(BOOL)first
               finally:(BOOL)finally;
 
-/*
+/**
  UITableView
  点击cell事件,如果控制器的点击delegate不实现的话，则执行该方法
  */
@@ -39,7 +39,7 @@
                   first:(BOOL)first
                 finally:(BOOL)finally;
 
-/*
+/**
  UITableView
  Cell即将显示
  */
@@ -47,7 +47,7 @@
               viewModel:(id<YXWListBinderViewModelProtocol>)viewModel
               indexPath:(NSIndexPath *)indexPath;
 
-/*
+/**
  UITableView
  Cell消失
  viewModel 为nil 暂不在EndDisplay中暴漏
@@ -57,7 +57,7 @@
                    indexPath:(NSIndexPath *)indexPath;
 
 
-/*
+/**
  UICollectionView
  点击cell事件,如果控制器的点击delegate不实现的话，则执行该方法
  */

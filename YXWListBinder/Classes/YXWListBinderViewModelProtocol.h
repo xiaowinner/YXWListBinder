@@ -6,7 +6,7 @@
 //  Copyright © 2018年 xiaowinner. All rights reserved.
 //
 
-/*
+/**
  用于Header ViewModel 或 Model
  */
 @protocol YXWListBinderViewModelProtocol

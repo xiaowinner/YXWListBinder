@@ -69,28 +69,28 @@
 
 @interface YXWListBinder : NSObject
 
-/*
+/**
  获取滑动的偏移量
  */
 typedef void(^YXWListViewScrollOffsetBlock)(CGPoint offset);
 
-/*
+/**
  每次请求获得的models，用于外部控制显示细节
  */
 typedef void(^YXWListRefreshSuccessBlock)(void);
 
-/*
+/**
  每次请求失败的Blcok
  */
 typedef void(^YXWListRefreshErrorBlock)(NSError * _Nullable error);
 
-/*
+/**
  不使用默认刷新，自定义刷新机制
  */
 typedef void(^YXWListRefreshCustomBlock)(void);
 
 
-/*
+/**
  当前TableView这一行的类型
  */
 typedef NS_ENUM(NSInteger,YXWLineType) {
@@ -100,7 +100,7 @@ typedef NS_ENUM(NSInteger,YXWLineType) {
 
 #pragma mark UITableView
 
-/*
+/**
  根据nib注册Cell
  */
 - (instancetype _Nullable )initBinder:(UITableView *_Nullable)tableView
@@ -110,7 +110,7 @@ typedef NS_ENUM(NSInteger,YXWLineType) {
               headerFooterIdentifiers:(NSArray *_Nullable)headerFooterIdentifiers
                           dataCommand:(RACCommand *_Nullable)dataCommand;
 
-/*
+/**
  根据name注册Cell
  */
 - (instancetype _Nullable )initBinder:(UITableView *_Nullable)tableView
@@ -119,7 +119,7 @@ typedef NS_ENUM(NSInteger,YXWLineType) {
                           dataCommand:(RACCommand *_Nullable)dataCommand;
 
 
-/*
+/**
  根据name或者nib注册Cell
  */
 - (instancetype _Nullable )initBinder:(UITableView *_Nullable)tableView
@@ -132,7 +132,7 @@ typedef NS_ENUM(NSInteger,YXWLineType) {
 
 #pragma mark UICollectionView
 
-/*
+/**
  根据nib注册Item
  */
 - (instancetype _Nullable)initBinder:(UICollectionView *_Nullable)collectionView
@@ -142,7 +142,7 @@ typedef NS_ENUM(NSInteger,YXWLineType) {
                    headerIdentifiers:(NSArray *_Nullable)headerIdentifiers
                          dataCommand:(RACCommand *_Nullable)dataCommand;
 
-/*
+/**
  根据name注册Item
  */
 - (instancetype _Nullable )initBinder:(UICollectionView *_Nullable)collectionView
@@ -151,12 +151,12 @@ typedef NS_ENUM(NSInteger,YXWLineType) {
                           dataCommand:(RACCommand *_Nullable)dataCommand;
 
 
-/*
+/**
  添加TableView数据获取机制以及成功和失败的监听
  */
 - (void)addTableViewDatasSubscribe:(YXWListRefreshSuccessBlock _Nullable )success errorSubcribe:(YXWListRefreshErrorBlock _Nullable )errorSubcribe;
 
-/*
+/**
  添加CollectionView数据获取机制以及成功和失败的监听
  */
 - (void)addCollectionViewDatasSubscribe:(YXWListRefreshSuccessBlock _Nullable )successBlock errorSubcribe:(YXWListRefreshErrorBlock _Nullable )errorSubcribe;
