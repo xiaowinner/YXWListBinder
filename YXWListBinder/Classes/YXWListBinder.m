@@ -559,12 +559,12 @@
     NSAssert([self judgeSelector:@selector(identifier) object:itemViewModel], @"model的identifier参数不正确,model:%@",itemViewModel);
     id <YXWListBinderWidgetProtocol> item = [collectionView dequeueReusableCellWithReuseIdentifier:[itemViewModel identifier] forIndexPath:indexPath];
     SEL bindSel = @selector(bindViewModel:atIndexPath:);
-    SEL bindExtSel = @selector(bindViewModel:atIndexPath:first:finally:);
+    SEL bindExtSel = @selector(bindViewModel:atIndexPath:first:finally:extra:);
 
     if ([(UICollectionView *)item respondsToSelector:bindExtSel]) {
         BOOL first = indexPath.row == 0 ? : NO;
         BOOL last = [self gainLastJudgeWithIndexPath:indexPath type:LineRow];
-        [item bindViewModel:itemViewModel atIndexPath:indexPath first:first finally:last];
+        [item bindViewModel:itemViewModel atIndexPath:indexPath first:first finally:last extra:self.extra];
     }else if ([(UICollectionViewCell *)item respondsToSelector:bindSel]) {
         [item bindViewModel:itemViewModel atIndexPath:indexPath];
     }
@@ -618,7 +618,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SEL bindSel = @selector(bindViewModel:atIndexPath:);
-    SEL bindExtSel = @selector(bindViewModel:atIndexPath:first:finally:);
+    SEL bindExtSel = @selector(bindViewModel:atIndexPath:first:finally:extra:);
 
     id <YXWListBinderViewModelProtocol> cellViewModel = [self gainCurrentViewModel:indexPath
                                                                               type:LineRow];
@@ -629,7 +629,7 @@
     if ([(UITableViewCell *)cell respondsToSelector:bindExtSel]) {
         BOOL last = [self gainLastJudgeWithIndexPath:indexPath type:LineRow];
         BOOL first = indexPath.row == 0 ? : NO;
-        [cell bindViewModel:cellViewModel atIndexPath:indexPath first:first finally:last];
+        [cell bindViewModel:cellViewModel atIndexPath:indexPath first:first finally:last extra:self.extra];
     }else if ([(UITableViewCell *)cell respondsToSelector:bindSel]) {
         [cell bindViewModel:cellViewModel atIndexPath:indexPath];
     }
@@ -770,6 +770,13 @@
                                              ];
     }
     return _tableViewPlaceHolderHeaderNames;
+}
+
+- (NSDictionary *)extra {
+    if (!_extra) {
+        _extra = [NSDictionary dictionary];
+    }
+    return _extra;
 }
 
 @end

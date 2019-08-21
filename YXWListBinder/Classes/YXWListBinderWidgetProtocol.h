@@ -27,7 +27,8 @@
 - (void)bindViewModel:(id<YXWListBinderViewModelProtocol>)viewModel
           atIndexPath:(NSIndexPath *)indexPath
                 first:(BOOL)first
-              finally:(BOOL)finally;
+              finally:(BOOL)finally
+                extra:(NSDictionary *)extra;
 
 /**
  UITableView

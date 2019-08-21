@@ -177,6 +177,11 @@ typedef NS_ENUM(NSInteger,YXWLineType) {
 
 @property (nonatomic, copy) NSArray * _Nullable data;
 
+/**
+ 带一些特殊参数给cell的特殊通道
+ */
+@property (nonatomic, copy) NSDictionary * _Nullable extra;
+
 @property (nonatomic, assign) BOOL needAnimation;
 
 @end
