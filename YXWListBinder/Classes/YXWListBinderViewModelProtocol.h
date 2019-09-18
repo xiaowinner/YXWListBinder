@@ -6,6 +6,8 @@
 //  Copyright © 2018年 xiaowinner. All rights reserved.
 //
 
+#import "YXWListBinderGeneralType.h"
+
 /**
  用于Header ViewModel 或 Model
  */
@@ -17,6 +19,7 @@
 
 
 @optional
+- (YXWLineType)lineType;
 - (NSInteger)gainSubDataCount:(NSInteger)section;
 - (id <YXWListBinderViewModelProtocol>)gainSubData:(NSInteger)index;
 - (void)exchangeViewModelDatas;

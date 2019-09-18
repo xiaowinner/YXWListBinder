@@ -10,6 +10,9 @@
     return 0;
 }
 
+- (YXWLineType)lineType {
+    return LineSection;
+}
 
 - (NSInteger)gainSubDataCount:(NSInteger)section {
     return self.subData.count;

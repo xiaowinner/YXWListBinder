@@ -9,6 +9,7 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import "YXWListBinderViewModelProtocol.h"
 #import "YXWListBinderWidgetProtocol.h"
+#import "YXWListBinderGeneralType.h"
 
 /*
  Delegate
@@ -89,16 +90,12 @@ typedef void(^YXWListRefreshErrorBlock)(NSError * _Nullable error);
  */
 typedef void(^YXWListRefreshCustomBlock)(void);
 
-
-/**
- 当前TableView这一行的类型
- */
-typedef NS_ENUM(NSInteger,YXWLineType) {
-    LineSection = 1,
-    LineRow = 2
-};
-
 #pragma mark UITableView
+/**
+ 初始化binder，但不预注册cell
+ */
+- (instancetype _Nullable)initBinder:(UITableView *_Nullable)tableView command:(RACCommand *_Nullable)command;
+
 
 /**
  根据nib注册Cell
@@ -131,6 +128,11 @@ typedef NS_ENUM(NSInteger,YXWLineType) {
 
 
 #pragma mark UICollectionView
+/**
+ 初始化binder，但不预注册cell
+ */
+- (instancetype _Nullable)initBinder:(UICollectionView *_Nullable)collectionView commend:(RACCommand *_Nullable)commend;
+
 
 /**
  根据nib注册Item

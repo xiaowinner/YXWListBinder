@@ -31,6 +31,18 @@
                 extra:(NSDictionary *)extra;
 
 /**
+ 数据绑定
+ 附带所属sectionModel
+ section可能为nil
+ */
+- (void)bindViewModel:(id<YXWListBinderViewModelProtocol>)viewModel
+     sectionViewModel:(id<YXWListBinderViewModelProtocol>)sectionViewModel
+          atIndexPath:(NSIndexPath *)indexPath
+                first:(BOOL)first
+              finally:(BOOL)finally
+                extra:(NSDictionary *)extra;
+
+/**
  UITableView
  点击cell事件,如果控制器的点击delegate不实现的话，则执行该方法
  */

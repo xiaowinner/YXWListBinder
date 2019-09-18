@@ -41,6 +41,18 @@
 @implementation YXWListBinder
 
 #pragma mark InitCollectionViewBinder
+- (instancetype)initBinder:(UICollectionView *)collectionView commend:(RACCommand *)commend {
+    self = [super init];
+    if (self) {
+        _collectionView = collectionView;
+        _commend = commend;
+        _collectionView.delegate = self;
+        _collectionView.dataSource = self;
+    }
+    return self;
+}
+
+
 
 - (instancetype)initBinder:(UICollectionView *)collectionView
                   nibsItem:(NSArray *)nibsItem
@@ -78,7 +90,6 @@
         }];
     }
     return self;
-    
 }
 
 
@@ -118,6 +129,26 @@
 
 
 #pragma mark InitTableViewBinder
+- (instancetype)initBinder:(UITableView *)tableView command:(RACCommand *)command {
+    self = [super init];
+    if (self) {
+        _tableView = tableView;
+        _commend = command;
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.estimatedRowHeight = 0;
+        _tableView.estimatedSectionHeaderHeight = 0;
+        _tableView.estimatedSectionFooterHeight = 0;
+
+        if (@available(iOS 11.0, *)) {
+            self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+
+        }
+    }
+    return self;
+}
+
 
 - (instancetype)initBinder:(UITableView *)tableView
                   nibsCell:(NSArray *)nibsCell
@@ -312,6 +343,28 @@
 }
 
 
+- (void)registerTableViewCellWithDatas:(NSArray *)datas {
+    SEL lineSel = @selector(lineType);
+    for (id <YXWListBinderViewModelProtocol> model in datas) {
+        YXWLineType type = LineRow;
+        if ([((NSObject *)model) respondsToSelector:lineSel]) {
+            type = [model lineType];
+        }
+        
+        if (type == LineRow) {
+            
+        }else if (type == LineSection) {
+            
+        }else {
+            return;
+        }
+    }
+}
+
+- (void)registerCollectionViewCellWithDatas:(NSArray *)datas {
+    
+}
+
 #pragma mark Util Method
 - (void)addTableViewDatasSubscribe:(YXWListRefreshSuccessBlock)successBlock errorSubcribe:(YXWListRefreshErrorBlock)errorSubcribe {
     if (!self.commend) {
@@ -436,6 +489,15 @@
         }
     }
     NSAssert(model != nil, @"数组中的model为空,IndexPath:%@",indexPath);
+    return model;
+}
+
+- (id<YXWListBinderViewModelProtocol>)gainCurrentSectionViewModel:(NSIndexPath *)indexPath {
+    SEL headerDataSel = @selector(gainSubData:);
+    id <YXWListBinderViewModelProtocol> model = nil;
+    if (self.hasSection) {
+        model = self.data[indexPath.section];
+    }
     return model;
 }
 
@@ -619,16 +681,23 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SEL bindSel = @selector(bindViewModel:atIndexPath:);
     SEL bindExtSel = @selector(bindViewModel:atIndexPath:first:finally:extra:);
+    SEL bindExtSectionSel = @selector(bindViewModel:sectionViewModel:atIndexPath:first:finally:extra:);
 
     id <YXWListBinderViewModelProtocol> cellViewModel = [self gainCurrentViewModel:indexPath
                                                                               type:LineRow];
+    
+    id <YXWListBinderViewModelProtocol> cellSectionViewModel = [self gainCurrentSectionViewModel:indexPath];
+    
     NSAssert([self judgeSelector:@selector(identifier) object:cellViewModel], @"model的identifier参数不正确,model:%@",cellViewModel);
     id <YXWListBinderWidgetProtocol> cell =
     [tableView dequeueReusableCellWithIdentifier:[cellViewModel identifier]
                                     forIndexPath:indexPath];
-    if ([(UITableViewCell *)cell respondsToSelector:bindExtSel]) {
-        BOOL last = [self gainLastJudgeWithIndexPath:indexPath type:LineRow];
-        BOOL first = indexPath.row == 0 ? : NO;
+    
+    BOOL last = [self gainLastJudgeWithIndexPath:indexPath type:LineRow];
+    BOOL first = indexPath.row == 0 ? : NO;
+    if ([(UITableViewCell *)cell respondsToSelector:bindExtSectionSel]) {
+        [cell bindViewModel:cellViewModel sectionViewModel:cellSectionViewModel atIndexPath:indexPath first:first finally:last extra:self.extra];
+    }else if ([(UITableViewCell *)cell respondsToSelector:bindExtSel]) {
         [cell bindViewModel:cellViewModel atIndexPath:indexPath first:first finally:last extra:self.extra];
     }else if ([(UITableViewCell *)cell respondsToSelector:bindSel]) {
         [cell bindViewModel:cellViewModel atIndexPath:indexPath];
