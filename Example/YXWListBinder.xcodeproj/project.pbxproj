@@ -276,6 +276,9 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "原晓文";
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = N5XKP8RSU6;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -531,6 +534,7 @@
 			baseConfigurationReference = BEE3A26105C6232E116542AB /* Pods-YXWListBinder_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = N5XKP8RSU6;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YXWListBinder/YXWListBinder-Prefix.pch";
 				INFOPLIST_FILE = "YXWListBinder/YXWListBinder-Info.plist";
@@ -546,6 +550,7 @@
 			baseConfigurationReference = 7A60DC96249CA916BD50ED18 /* Pods-YXWListBinder_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = N5XKP8RSU6;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YXWListBinder/YXWListBinder-Prefix.pch";
 				INFOPLIST_FILE = "YXWListBinder/YXWListBinder-Info.plist";
