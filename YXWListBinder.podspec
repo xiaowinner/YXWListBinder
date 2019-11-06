@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YXWListBinder'
-  s.version          = '0.2.26'
+  s.version          = '0.2.27'
   s.summary          = 'List binder.'
 
   s.description      = <<-DESC
