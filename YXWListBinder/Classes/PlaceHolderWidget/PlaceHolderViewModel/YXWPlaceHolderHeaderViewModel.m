@@ -25,6 +25,9 @@
 }
 
 - (CGFloat)widgetHeight {
+    if (self.headerHeight) {
+        return self.headerHeight.floatValue;
+    }
     return CGFLOAT_MIN;
 }
 
