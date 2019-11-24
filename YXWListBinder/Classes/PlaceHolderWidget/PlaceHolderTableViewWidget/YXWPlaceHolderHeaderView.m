@@ -5,12 +5,12 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.backgroundColor = [UIColor whiteColor];
+    self.contentView.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)bindViewModel:(id<YXWListBinderViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath {
     if ([(NSObject *)viewModel isKindOfClass:[YXWPlaceHolderHeaderViewModel class]]) {
-        self.backgroundColor = ((YXWPlaceHolderHeaderViewModel *)viewModel).bgColor;
+        self.contentView.backgroundColor = ((YXWPlaceHolderHeaderViewModel *)viewModel).bgColor;
     }
 }
 
