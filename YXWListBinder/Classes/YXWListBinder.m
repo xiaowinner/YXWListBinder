@@ -733,7 +733,7 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return CGFLOAT_MIN;
+    return 0.01;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -741,7 +741,7 @@
         id <YXWListBinderViewModelProtocol> headerViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForRow:0 inSection:section] type:LineSection];
         return headerViewModel.widgetHeight;
     }else {
-        return CGFLOAT_MIN;
+        return 0.01;
     }
 }
 
