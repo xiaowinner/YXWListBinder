@@ -28,7 +28,7 @@
     if (self.headerHeight) {
         return self.headerHeight.floatValue;
     }
-    return 0.01;
+    return CGFLOAT_MIN;
 }
 
 @end
