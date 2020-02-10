@@ -712,7 +712,15 @@
         id <YXWListBinderWidgetProtocol> header =
         [tableView dequeueReusableHeaderFooterViewWithIdentifier:[headerViewModel identifier]];
         SEL bindSel = @selector(bindViewModel:atIndexPath:);
-        if ([(UITableViewHeaderFooterView *)header respondsToSelector:bindSel]) {
+        SEL bindExtSel = @selector(bindViewModel:atIndexPath:first:finally:extra:);
+        SEL bindExtSectionSel = @selector(bindViewModel:sectionViewModel:atIndexPath:first:finally:extra:);
+        BOOL last = [self gainLastJudgeWithIndexPath:[NSIndexPath indexPathForRow:0 inSection:section] type:LineSection];
+        BOOL first = section == 0 ? : NO;
+        if ([(UITableViewHeaderFooterView *)header respondsToSelector:bindExtSectionSel]) {
+            [header bindViewModel:headerViewModel sectionViewModel:headerViewModel atIndexPath:[NSIndexPath indexPathForRow:0 inSection:section] first:first finally:last extra:self.extra];
+        }else if ([(UITableViewHeaderFooterView *)header respondsToSelector:bindExtSel]) {
+            [header bindViewModel:headerViewModel atIndexPath:[NSIndexPath indexPathForRow:0 inSection:section] first:first finally:last extra:self.extra];
+        }else if ([(UITableViewHeaderFooterView *)header respondsToSelector:bindSel]) {
             [header bindViewModel:headerViewModel atIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
         }
         return (UITableViewHeaderFooterView *)header;

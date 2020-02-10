@@ -11,6 +11,7 @@
             @strongify(self);
             return [[self requestData:tuple] materialize];
         }];
+        _dataCommand.allowsConcurrentExecution = YES;
     }
     return self;
 }
