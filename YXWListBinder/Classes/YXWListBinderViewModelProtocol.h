@@ -7,6 +7,7 @@
 //
 
 #import "YXWListBinderGeneralType.h"
+#import "YXWListBinderCollectionWidgetConfig.h"
 
 /**
  用于Header ViewModel 或 Model
@@ -19,10 +20,14 @@
 
 
 @optional
+
 - (YXWLineType)lineType;
 - (NSInteger)gainSubDataCount:(NSInteger)section;
 - (id <YXWListBinderViewModelProtocol>)gainSubData:(NSInteger)index;
 - (void)exchangeViewModelDatas;
+
+/** Collection的配置专用*/
+- (YXWListBinderCollectionWidgetConfig *)widgetConfig;
 
 @end
 

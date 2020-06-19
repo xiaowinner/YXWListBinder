@@ -6,14 +6,14 @@ PODS:
   - ReactiveCocoa/no-arc (2.5)
   - ReactiveCocoa/UI (2.5):
     - ReactiveCocoa/Core
-  - YXWListBinder (0.2.25):
+  - YXWListBinder (0.2.35):
     - ReactiveCocoa (~> 2.5)
 
 DEPENDENCIES:
   - YXWListBinder (from `../`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - ReactiveCocoa
 
 EXTERNAL SOURCES:
@@ -22,8 +22,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
-  YXWListBinder: 7f52a5ab22937158870bd1f99c3fe3d4bbcfd593
+  YXWListBinder: 50899ceffff233e001d606c350171fbd2a2bbc4a
 
-PODFILE CHECKSUM: 159b375f116d5bb243bf961cff9f71724b2147df
+PODFILE CHECKSUM: d0d9f0e638f9daaffe91da06f426a64007f7c8af
 
-COCOAPODS: 1.6.0
+COCOAPODS: 1.9.3
