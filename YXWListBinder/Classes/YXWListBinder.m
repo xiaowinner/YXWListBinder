@@ -636,7 +636,7 @@
 
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    if (self.hasSection) {
+    if (self.hasSection && kind == UICollectionElementKindSectionHeader) {
         id <YXWListBinderViewModelProtocol> headerViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForRow:0 inSection:indexPath.section] type:LineSection];
         id <YXWListBinderWidgetProtocol> header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[headerViewModel identifier] forIndexPath:indexPath];
         SEL bindSel = @selector(bindViewModel:atIndexPath:);
@@ -750,6 +750,9 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
+    if (!self.hasSection) {
+        return CGSizeZero;
+    }
     id <YXWListBinderViewModelProtocol> itemViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForItem:0 inSection:section]
                                                                               type:LineSection];
     if ([(NSObject *)itemViewModel respondsToSelector:@selector(widgetConfig)]) {
@@ -759,23 +762,6 @@
         if ([collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]]) {
             CGSize headerSize = ((UICollectionViewFlowLayout *)collectionViewLayout).headerReferenceSize;
             return headerSize;
-        }
-        return CGSizeZero;
-    }
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView
-                  layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
-{
-    id <YXWListBinderViewModelProtocol> itemViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForItem:0 inSection:section]
-                                                                              type:LineSection];
-    if ([(NSObject *)itemViewModel respondsToSelector:@selector(widgetConfig)]) {
-        YXWListBinderCollectionWidgetConfig *config = [itemViewModel widgetConfig];
-        return config.widgetSize;
-    }else {
-        if ([collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]]) {
-            CGSize footerSize = ((UICollectionViewFlowLayout *)collectionViewLayout).footerReferenceSize;
-            return footerSize;
         }
         return CGSizeZero;
     }
