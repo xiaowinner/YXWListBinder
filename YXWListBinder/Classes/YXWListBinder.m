@@ -63,7 +63,7 @@
     
     self = [super init];
     if (self) {
-        if (nibHeaders && nibHeaders.count > 0) {
+        if (nibHeaders) {
             _hasSection = YES;
         }else {
             _hasSection = NO;
@@ -100,7 +100,7 @@
     self = [super init];
     if (self) {
         
-        if (headerClassNames && headerClassNames.count > 0) {
+        if (headerClassNames) {
             _hasSection = YES;
         }else {
             _hasSection = NO;
@@ -159,7 +159,7 @@
     self = [super init];
     if (self) {
         
-        if (nibHeaderFooters && nibHeaderFooters.count > 0) {
+        if (nibHeaderFooters) {
             _hasSection = YES;
         }else {
             _hasSection = NO;
@@ -221,7 +221,7 @@
     self = [super init];
     if (self) {
         
-        if (headerFooterClassNames && headerFooterClassNames.count > 0) {
+        if (headerFooterClassNames) {
             _hasSection = YES;
         }else {
             _hasSection = NO;
@@ -279,7 +279,7 @@
                dataCommand:(RACCommand *)dataCommand {
     self = [super init];
     if (self) {
-        if (headerFooters && headerFooters.count > 0) {
+        if (headerFooters) {
             _hasSection = YES;
         }else {
             _hasSection = NO;
