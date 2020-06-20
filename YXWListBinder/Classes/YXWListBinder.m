@@ -699,72 +699,77 @@
                         layout:(UICollectionViewLayout*)collectionViewLayout
         insetForSectionAtIndex:(NSInteger)section
 {
-    id <YXWListBinderViewModelProtocol> itemViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForItem:0 inSection:section]
-                                                                              type:LineSection];
-    if ([(NSObject *)itemViewModel respondsToSelector:@selector(widgetConfig)]) {
-        YXWListBinderCollectionWidgetConfig *config = [itemViewModel widgetConfig];
-        return config.sectionInset;
+    if (self.hasSection) {
+        id <YXWListBinderViewModelProtocol> itemViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForItem:0 inSection:section]
+                                                                                  type:LineSection];
+        if ([(NSObject *)itemViewModel respondsToSelector:@selector(widgetConfig)]) {
+            YXWListBinderCollectionWidgetConfig *config = [itemViewModel widgetConfig];
+            return config.sectionInset;
+        }
     }else {
         if ([collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]]) {
             UIEdgeInsets secInset = ((UICollectionViewFlowLayout *)collectionViewLayout).sectionInset;
             return secInset;
         }
-        return UIEdgeInsetsZero;
     }
+    return UIEdgeInsetsZero;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView
                    layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    id <YXWListBinderViewModelProtocol> itemViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForItem:0 inSection:section]
-                                                                              type:LineSection];
-    if ([(NSObject *)itemViewModel respondsToSelector:@selector(widgetConfig)]) {
-        YXWListBinderCollectionWidgetConfig *config = [itemViewModel widgetConfig];
-        return config.minimumLineSpace;
+    if (self.hasSection) {
+        id <YXWListBinderViewModelProtocol> itemViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForItem:0 inSection:section]
+                                                                                  type:LineSection];
+        if ([(NSObject *)itemViewModel respondsToSelector:@selector(widgetConfig)]) {
+            YXWListBinderCollectionWidgetConfig *config = [itemViewModel widgetConfig];
+            return config.minimumLineSpace;
+        }
     }else {
         if ([collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]]) {
             CGFloat minimumLineSpacing = ((UICollectionViewFlowLayout *)collectionViewLayout).minimumLineSpacing;
             return minimumLineSpacing;
         }
-        return 0;
     }
+    return 0;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView
                    layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    id <YXWListBinderViewModelProtocol> itemViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForItem:0 inSection:section]
-                                                                              type:LineSection];
-    if ([(NSObject *)itemViewModel respondsToSelector:@selector(widgetConfig)]) {
-        YXWListBinderCollectionWidgetConfig *config = [itemViewModel widgetConfig];
-        return config.minimumInteritemSpace;
+    if (self.hasSection) {
+        id <YXWListBinderViewModelProtocol> itemViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForItem:0 inSection:section]
+                                                                                  type:LineSection];
+        if ([(NSObject *)itemViewModel respondsToSelector:@selector(widgetConfig)]) {
+            YXWListBinderCollectionWidgetConfig *config = [itemViewModel widgetConfig];
+            return config.minimumInteritemSpace;
+        }
     }else {
         if ([collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]]) {
             CGFloat minimumInteritemSpace = ((UICollectionViewFlowLayout *)collectionViewLayout).minimumInteritemSpacing;
             return minimumInteritemSpace;
         }
-        return 0;
     }
+    return 0;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
-    if (!self.hasSection) {
-        return CGSizeZero;
-    }
-    id <YXWListBinderViewModelProtocol> itemViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForItem:0 inSection:section]
-                                                                              type:LineSection];
-    if ([(NSObject *)itemViewModel respondsToSelector:@selector(widgetConfig)]) {
-        YXWListBinderCollectionWidgetConfig *config = [itemViewModel widgetConfig];
-        return config.widgetSize;
+    if (self.hasSection) {
+        id <YXWListBinderViewModelProtocol> itemViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForItem:0 inSection:section]
+                                                                                  type:LineSection];
+        if ([(NSObject *)itemViewModel respondsToSelector:@selector(widgetConfig)]) {
+            YXWListBinderCollectionWidgetConfig *config = [itemViewModel widgetConfig];
+            return config.widgetSize;
+        }
     }else {
         if ([collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]]) {
             CGSize headerSize = ((UICollectionViewFlowLayout *)collectionViewLayout).headerReferenceSize;
             return headerSize;
         }
-        return CGSizeZero;
     }
+    return CGSizeZero;
 }
 
 #pragma mark UITableViewDelegate & DataSource
