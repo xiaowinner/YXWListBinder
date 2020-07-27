@@ -634,6 +634,20 @@
     return (UICollectionViewCell *)item;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([cell respondsToSelector:@selector(willDisplayCell:viewModel:indexPath:)]) {
+        id <YXWListBinderWidgetProtocol> listCell = cell;
+        id <YXWListBinderViewModelProtocol> model = [self gainCurrentViewModel:indexPath type:LineRow];
+        [listCell willDisplayCell:collectionView viewModel:model indexPath:indexPath];
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([cell respondsToSelector:@selector(didEndDisplayingCell:viewModel:indexPath:)]) {
+        id <YXWListBinderWidgetProtocol> listCell = cell;
+        [listCell didEndDisplayingCell:collectionView viewModel:nil indexPath:indexPath];
+    }
+}
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if (self.hasSection && kind == UICollectionElementKindSectionHeader) {
