@@ -623,13 +623,19 @@
     id <YXWListBinderWidgetProtocol> item = [collectionView dequeueReusableCellWithReuseIdentifier:[itemViewModel identifier] forIndexPath:indexPath];
     SEL bindSel = @selector(bindViewModel:atIndexPath:);
     SEL bindExtSel = @selector(bindViewModel:atIndexPath:first:finally:extra:);
+    SEL bindExtSectionSel = @selector(bindViewModel:sectionViewModel:atIndexPath:first:finally:extra:);
 
+    id <YXWListBinderViewModelProtocol> itemSectionViewModel = [self gainCurrentSectionViewModel:indexPath];
+    
+    BOOL first = indexPath.row == 0 ? : NO;
+    BOOL last = [self gainLastJudgeWithIndexPath:indexPath type:LineRow];
+    
     if ([(UICollectionView *)item respondsToSelector:bindExtSel]) {
-        BOOL first = indexPath.row == 0 ? : NO;
-        BOOL last = [self gainLastJudgeWithIndexPath:indexPath type:LineRow];
         [item bindViewModel:itemViewModel atIndexPath:indexPath first:first finally:last extra:self.extra];
     }else if ([(UICollectionViewCell *)item respondsToSelector:bindSel]) {
         [item bindViewModel:itemViewModel atIndexPath:indexPath];
+    }else if ([(UICollectionViewCell *)item respondsToSelector:bindExtSectionSel]) {
+        [item bindViewModel:itemViewModel sectionViewModel:itemSectionViewModel atIndexPath:indexPath first:first finally:last extra:self.extra];
     }
     return (UICollectionViewCell *)item;
 }
