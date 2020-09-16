@@ -494,7 +494,6 @@
 }
 
 - (id<YXWListBinderViewModelProtocol>)gainCurrentSectionViewModel:(NSIndexPath *)indexPath {
-    SEL headerDataSel = @selector(gainSubData:);
     id <YXWListBinderViewModelProtocol> model = nil;
     if (self.hasSection) {
         model = self.data[indexPath.section];
