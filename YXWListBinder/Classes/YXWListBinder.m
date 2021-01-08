@@ -847,14 +847,18 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     SEL editSel = @selector(YXWTableView:canEditRowAtIndexPath:);
     if (self.tableViewDelegate && [self.tableViewDelegate respondsToSelector:editSel]) {
-        [self.tableViewDelegate YXWTableView:tableView canEditRowAtIndexPath:indexPath];
+        return [self.tableViewDelegate YXWTableView:tableView canEditRowAtIndexPath:indexPath];
+    }else {
+        return NO;
     }
 }
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     SEL editActionSel = @selector(YXWTableView:editActionsForRowAtIndexPath:);
     if (self.tableViewDelegate && [self.tableViewDelegate respondsToSelector:editActionSel]) {
-        [self.tableViewDelegate YXWTableView:tableView editActionsForRowAtIndexPath:indexPath];
+        return [self.tableViewDelegate YXWTableView:tableView editActionsForRowAtIndexPath:indexPath];
+    }else {
+        return [NSArray array];
     }
 }
 
