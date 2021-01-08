@@ -16,12 +16,19 @@
  */
 @protocol YXWListBinderTableViewDelegate <NSObject>
 
+@optional
+
 - (void)YXWTableViewSelected:(UITableView *_Nullable)tableView
                    indexPath:(NSIndexPath *_Nullable)indexPath
                        model:(id<YXWListBinderViewModelProtocol> _Nullable)model;
 
-@end
+- (NSArray<UITableViewRowAction *> *_Nullable)YXWTableView:(UITableView *_Nullable)tableView editActionsForRowAtIndexPath:(NSIndexPath *_Nullable)indexPath;
 
+- (void)YXWTableView:(UITableView *_Nullable)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *_Nullable)indexPath;
+
+- (BOOL)YXWTableView:(UITableView *_Nullable)tableView canEditRowAtIndexPath:(NSIndexPath *_Nullable)indexPath;
+
+@end
 
 @protocol YXWListBinderCollectionViewDelegate <NSObject>
 

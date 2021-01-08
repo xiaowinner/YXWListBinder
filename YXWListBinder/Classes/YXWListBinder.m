@@ -844,6 +844,27 @@
     }
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    SEL editSel = @selector(YXWTableView:canEditRowAtIndexPath:);
+    if (self.tableViewDelegate && [self.tableViewDelegate respondsToSelector:editSel]) {
+        [self.tableViewDelegate YXWTableView:tableView canEditRowAtIndexPath:indexPath];
+    }
+}
+
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    SEL editActionSel = @selector(YXWTableView:editActionsForRowAtIndexPath:);
+    if (self.tableViewDelegate && [self.tableViewDelegate respondsToSelector:editActionSel]) {
+        [self.tableViewDelegate YXWTableView:tableView editActionsForRowAtIndexPath:indexPath];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    SEL willBeginEditing = @selector(YXWTableView:willBeginEditingRowAtIndexPath:);
+    if (self.tableViewDelegate && [self.tableViewDelegate respondsToSelector:willBeginEditing]) {
+        [self.tableViewDelegate YXWTableView:tableView willBeginEditingRowAtIndexPath:indexPath];
+    }
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return [self gainCurrentCount:LineSection
                           section:0];
