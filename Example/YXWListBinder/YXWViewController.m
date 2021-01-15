@@ -30,13 +30,11 @@
     UINib *aNib = [UINib nibWithNibName:@"YXWNibTableViewCell" bundle:[NSBundle mainBundle]];
     NSArray *cel = [NSArray arrayWithObjects:aNib, [NSString stringWithFormat:@"YXWClassTableViewCell"], nil];
     
-    
-    
     self.tableViewBinder = [[YXWListBinder alloc] initBinder:self.tableView
                                                        cells:cel
-                                               headerFooters:nil
-                                             cellIdentifiers:@[@"YXWNibTableViewCell",@"YXWClassTableViewCell"]
-                                     headerFooterIdentifiers:nil
+                                               headerFooters:@[@"YXWNibTableViewHeaderView"]
+                                             cellIdentifiers:@[@"YXWNibTableViewCell", @"YXWClassTableViewCell"]
+                                     headerFooterIdentifiers:@[@"YXWNibTableViewHeaderView"]
                                                  dataCommand:self.viewModel.dataCommand];
     
     [self.tableViewBinder addTableViewDatasSubscribe:^{

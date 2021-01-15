@@ -374,18 +374,24 @@
     self.refreshErrorBlock = errorSubcribe;
     @weakify(self);
     [self.commend.executionSignals subscribeNext:^(RACSignal *execution) {
-        [[[execution dematerialize] deliverOnMainThread]
-         subscribeNext:^(NSArray *x) {
-             @strongify(self);
-             self.data = x;
-             if (self.customRefreshBlock) {
-                 self.customRefreshBlock();
-             }else {
-                 [self.tableView reloadData];
-             }
-             if (self.refreshSuccessBlock) {
-                 self.refreshSuccessBlock();
-             }
+        [[[[[execution dematerialize] deliverOn:[RACScheduler scheduler]] map:^id(NSArray *value) {
+            [value enumerateObjectsUsingBlock:^(id<YXWListBinderViewModelProtocol> obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (obj && [(NSObject *)obj respondsToSelector:@selector(exchangeViewModelRealDatas)]) {
+                    [obj exchangeViewModelRealDatas];
+                }
+            }];
+            return value;
+        }] deliverOnMainThread] subscribeNext:^(NSArray *x) {
+            @strongify(self);
+            self.data = x;
+            if (self.customRefreshBlock) {
+                self.customRefreshBlock();
+            }else {
+                [self.tableView reloadData];
+            }
+            if (self.refreshSuccessBlock) {
+                self.refreshSuccessBlock();
+            }
          } error:^(NSError *error) {
              @strongify(self);
              if (self.refreshErrorBlock) {
@@ -403,8 +409,14 @@
     self.refreshErrorBlock = errorSubcribe;
     @weakify(self);
     [self.commend.executionSignals subscribeNext:^(RACSignal *execution) {
-        [[[execution dematerialize] deliverOnMainThread]
-         subscribeNext:^(NSArray *x) {
+        [[[[[execution dematerialize] deliverOn:[RACScheduler scheduler]] map:^id(NSArray *value) {
+            [value enumerateObjectsUsingBlock:^(id<YXWListBinderViewModelProtocol> obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (obj && [(NSObject *)obj respondsToSelector:@selector(exchangeViewModelRealDatas)]) {
+                    [obj exchangeViewModelRealDatas];
+                }
+            }];
+            return value;
+        }] deliverOnMainThread] subscribeNext:^(NSArray *x) {
              @strongify(self);
              self.data = x;
              if (self.customRefreshBlock) {
