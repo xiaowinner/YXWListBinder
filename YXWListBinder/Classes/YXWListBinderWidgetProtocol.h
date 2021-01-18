@@ -85,8 +85,8 @@
  Cell即将显示
  */
 - (void)willDisplayCollectionCell:(UICollectionView *)collectionView
-              viewModel:(id<YXWListBinderViewModelProtocol>)viewModel
-              indexPath:(NSIndexPath *)indexPath;
+                        viewModel:(id<YXWListBinderViewModelProtocol>)viewModel
+                        indexPath:(NSIndexPath *)indexPath;
 
 /**
  UICollectionView
@@ -94,7 +94,7 @@
  viewModel 为nil 暂不在EndDisplay中暴漏
  */
 - (void)didEndDisplayingCollectionCell:(UICollectionView *)collectionView
-                   viewModel:(id<YXWListBinderViewModelProtocol>)viewModel
-                   indexPath:(NSIndexPath *)indexPath;
+                             viewModel:(id<YXWListBinderViewModelProtocol>)viewModel
+                             indexPath:(NSIndexPath *)indexPath;
 
 @end

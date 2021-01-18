@@ -1,5 +1,6 @@
 #import "YXWTitleImagePlaceHolderViewModel.h"
-
+#import "UIView+YXWBinder.h"
+#import "YXWTitleImagePlaceHolderCell.h"
 
 @implementation YXWTitleImagePlaceHolderViewModel
 
@@ -14,5 +15,15 @@
         return [UIScreen mainScreen].bounds.size.width * 0.5266;
     }
 }
+
+- (YXWLineType)lineType {
+    return LineRow;
+}
+
+
+- (id)showWidget {
+    return [YXWTitleImagePlaceHolderCell nibFromYXWListBinder];
+}
+
 
 @end

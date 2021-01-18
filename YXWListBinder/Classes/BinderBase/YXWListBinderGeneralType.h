@@ -9,6 +9,6 @@
  当前TableView这一行的类型
  */
 typedef NS_ENUM(NSUInteger,YXWLineType) {
-    LineRow = 0,
-    LineSection = 1,
+    LineRow = 0, /** 行(Row)*/
+    LineSection = 1, /** 头(Section)*/
 };

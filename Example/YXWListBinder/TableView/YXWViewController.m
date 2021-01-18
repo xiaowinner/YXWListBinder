@@ -11,7 +11,9 @@
 
 @interface YXWViewController ()
 
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) YXWViewModel *viewModel;
+@property (nonatomic, strong) YXWListBinder *tableViewBinder;
     
 @end
 
@@ -24,21 +26,14 @@
     
     CGFloat useWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat useHeight = [UIScreen mainScreen].bounds.size.height;
-    self.tableView.frame = CGRectMake(0, 0, useWidth, useHeight);
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, useWidth, useHeight) style:UITableViewStylePlain];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
-    UINib *aNib = [UINib nibWithNibName:@"YXWNibTableViewCell" bundle:[NSBundle mainBundle]];
-    NSArray *cel = [NSArray arrayWithObjects:aNib, [NSString stringWithFormat:@"YXWClassTableViewCell"], nil];
-    
-    self.tableViewBinder = [[YXWListBinder alloc] initBinder:self.tableView
-                                                       cells:cel
-                                               headerFooters:@[@"YXWNibTableViewHeaderView"]
-                                             cellIdentifiers:@[@"YXWNibTableViewCell", @"YXWClassTableViewCell"]
-                                     headerFooterIdentifiers:@[@"YXWNibTableViewHeaderView"]
-                                                 dataCommand:self.viewModel.dataCommand];
+    self.tableViewBinder = [[YXWListBinder alloc] initBinderWithTableView:self.tableView hasSection:YES command:self.viewModel.dataCommand];
     
     [self.tableViewBinder addTableViewDatasSubscribe:^{
-
+        
     } errorSubcribe:^(NSError *error) {
 
     }];

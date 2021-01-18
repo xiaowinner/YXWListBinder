@@ -11,6 +11,6 @@
 
 @import UIKit;
 
-@interface YXWViewController : YXWNormalBaseTabbleViewController
+@interface YXWViewController : UIViewController
 
 @end

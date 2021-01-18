@@ -22,6 +22,16 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		A919442E57BA89530DB3CBE2 /* libPods-YXWListBinder_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 406E83AE1C716CB6A28C2660 /* libPods-YXWListBinder_Example.a */; };
+		AF51027925B57DDB00847B0A /* YXWCLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF51027825B57DDB00847B0A /* YXWCLViewController.m */; };
+		AF51028425B57E1500847B0A /* YXWCLViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AF51028325B57E1500847B0A /* YXWCLViewModel.m */; };
+		AF51029225B57FBD00847B0A /* YXWCLCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AF51029025B57FBD00847B0A /* YXWCLCell.m */; };
+		AF51029325B57FBD00847B0A /* YXWCLCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF51029125B57FBD00847B0A /* YXWCLCell.xib */; };
+		AF51029A25B57FCC00847B0A /* YXWCLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AF51029925B57FCC00847B0A /* YXWCLModel.m */; };
+		AF51029F25B5801A00847B0A /* YXWCLClassCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AF51029E25B5801A00847B0A /* YXWCLClassCell.m */; };
+		AF5102A425B5802B00847B0A /* YXWCLClassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AF5102A325B5802B00847B0A /* YXWCLClassModel.m */; };
+		AF5102A925B5805500847B0A /* YXWClHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF5102A825B5805500847B0A /* YXWClHeaderView.m */; };
+		AF5102AE25B5806900847B0A /* YXWClHeaderViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AF5102AD25B5806900847B0A /* YXWClHeaderViewModel.m */; };
 		AF5E639822B765E300B10A08 /* YXWViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AF5E639722B765E300B10A08 /* YXWViewModel.m */; };
 		AF5E639C22B7666A00B10A08 /* YXWNibTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AF5E639A22B7666A00B10A08 /* YXWNibTableViewCell.m */; };
 		AF5E63A022B7667B00B10A08 /* YXWClassTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AF5E639F22B7667B00B10A08 /* YXWClassTableViewCell.m */; };
@@ -30,7 +40,6 @@
 		AF5E63A822B76B6C00B10A08 /* YXWNibTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF5E639B22B7666A00B10A08 /* YXWNibTableViewCell.xib */; };
 		AF6DA7F025B16E15002ABB98 /* YXWNibTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF6DA7EF25B16E15002ABB98 /* YXWNibTableViewHeaderView.m */; };
 		AF6DA7F525B18736002ABB98 /* YXWNibHeaderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AF6DA7F425B18736002ABB98 /* YXWNibHeaderModel.m */; };
-		CFC13AF8E06C1C144A215982 /* Pods_YXWListBinder_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A38B0078F49EC0308F6AF671 /* Pods_YXWListBinder_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		406E83AE1C716CB6A28C2660 /* libPods-YXWListBinder_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YXWListBinder_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58A195388D20070C39A /* YXWListBinder_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YXWListBinder_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -69,7 +79,23 @@
 		7A60DC96249CA916BD50ED18 /* Pods-YXWListBinder_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YXWListBinder_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-YXWListBinder_Example/Pods-YXWListBinder_Example.release.xcconfig"; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8F43B8C9325F784004048E3E /* YXWListBinder.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = YXWListBinder.podspec; path = ../YXWListBinder.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A38B0078F49EC0308F6AF671 /* Pods_YXWListBinder_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YXWListBinder_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF51027725B57DDB00847B0A /* YXWCLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXWCLViewController.h; sourceTree = "<group>"; };
+		AF51027825B57DDB00847B0A /* YXWCLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXWCLViewController.m; sourceTree = "<group>"; };
+		AF51028225B57E1500847B0A /* YXWCLViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXWCLViewModel.h; sourceTree = "<group>"; };
+		AF51028325B57E1500847B0A /* YXWCLViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXWCLViewModel.m; sourceTree = "<group>"; };
+		AF51028F25B57FBD00847B0A /* YXWCLCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXWCLCell.h; sourceTree = "<group>"; };
+		AF51029025B57FBD00847B0A /* YXWCLCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXWCLCell.m; sourceTree = "<group>"; };
+		AF51029125B57FBD00847B0A /* YXWCLCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YXWCLCell.xib; sourceTree = "<group>"; };
+		AF51029825B57FCC00847B0A /* YXWCLModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXWCLModel.h; sourceTree = "<group>"; };
+		AF51029925B57FCC00847B0A /* YXWCLModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXWCLModel.m; sourceTree = "<group>"; };
+		AF51029D25B5801A00847B0A /* YXWCLClassCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXWCLClassCell.h; sourceTree = "<group>"; };
+		AF51029E25B5801A00847B0A /* YXWCLClassCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXWCLClassCell.m; sourceTree = "<group>"; };
+		AF5102A225B5802B00847B0A /* YXWCLClassModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXWCLClassModel.h; sourceTree = "<group>"; };
+		AF5102A325B5802B00847B0A /* YXWCLClassModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXWCLClassModel.m; sourceTree = "<group>"; };
+		AF5102A725B5805500847B0A /* YXWClHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXWClHeaderView.h; sourceTree = "<group>"; };
+		AF5102A825B5805500847B0A /* YXWClHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXWClHeaderView.m; sourceTree = "<group>"; };
+		AF5102AC25B5806900847B0A /* YXWClHeaderViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXWClHeaderViewModel.h; sourceTree = "<group>"; };
+		AF5102AD25B5806900847B0A /* YXWClHeaderViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXWClHeaderViewModel.m; sourceTree = "<group>"; };
 		AF5E639622B765E300B10A08 /* YXWViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXWViewModel.h; sourceTree = "<group>"; };
 		AF5E639722B765E300B10A08 /* YXWViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXWViewModel.m; sourceTree = "<group>"; };
 		AF5E639922B7666A00B10A08 /* YXWNibTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXWNibTableViewCell.h; sourceTree = "<group>"; };
@@ -97,7 +123,7 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				CFC13AF8E06C1C144A215982 /* Pods_YXWListBinder_Example.framework in Frameworks */,
+				A919442E57BA89530DB3CBE2 /* libPods-YXWListBinder_Example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,8 +168,8 @@
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
-				A38B0078F49EC0308F6AF671 /* Pods_YXWListBinder_Example.framework */,
 				6630D330D7E766BF5C3F93D8 /* Pods_YXWListBinder_Tests.framework */,
+				406E83AE1C716CB6A28C2660 /* libPods-YXWListBinder_Example.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -151,21 +177,11 @@
 		6003F593195388D20070C39A /* Example for YXWListBinder */ = {
 			isa = PBXGroup;
 			children = (
-				AF5E63A122B7673B00B10A08 /* Model */,
+				AF51026625B57C9E00847B0A /* CollectionView */,
+				AF51026525B57C9400847B0A /* TableView */,
 				6003F59C195388D20070C39A /* YXWAppDelegate.h */,
 				6003F59D195388D20070C39A /* YXWAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
-				6003F5A5195388D20070C39A /* YXWViewController.h */,
-				6003F5A6195388D20070C39A /* YXWViewController.m */,
-				AF5E639622B765E300B10A08 /* YXWViewModel.h */,
-				AF5E639722B765E300B10A08 /* YXWViewModel.m */,
-				AF5E639922B7666A00B10A08 /* YXWNibTableViewCell.h */,
-				AF5E639A22B7666A00B10A08 /* YXWNibTableViewCell.m */,
-				AF5E639B22B7666A00B10A08 /* YXWNibTableViewCell.xib */,
-				AF5E639E22B7667A00B10A08 /* YXWClassTableViewCell.h */,
-				AF5E639F22B7667B00B10A08 /* YXWClassTableViewCell.m */,
-				AF6DA7EE25B16E15002ABB98 /* YXWNibTableViewHeaderView.h */,
-				AF6DA7EF25B16E15002ABB98 /* YXWNibTableViewHeaderView.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
@@ -223,6 +239,73 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		AF51026525B57C9400847B0A /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				AF5E63A122B7673B00B10A08 /* Model */,
+				AF51026725B57CB800847B0A /* Widget */,
+				AF5E639622B765E300B10A08 /* YXWViewModel.h */,
+				AF5E639722B765E300B10A08 /* YXWViewModel.m */,
+				6003F5A5195388D20070C39A /* YXWViewController.h */,
+				6003F5A6195388D20070C39A /* YXWViewController.m */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		AF51026625B57C9E00847B0A /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				AF51028E25B57F9C00847B0A /* Widget */,
+				AF51028D25B57F9600847B0A /* Model */,
+				AF51027725B57DDB00847B0A /* YXWCLViewController.h */,
+				AF51027825B57DDB00847B0A /* YXWCLViewController.m */,
+				AF51028225B57E1500847B0A /* YXWCLViewModel.h */,
+				AF51028325B57E1500847B0A /* YXWCLViewModel.m */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		AF51026725B57CB800847B0A /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				AF5E639922B7666A00B10A08 /* YXWNibTableViewCell.h */,
+				AF5E639A22B7666A00B10A08 /* YXWNibTableViewCell.m */,
+				AF5E639B22B7666A00B10A08 /* YXWNibTableViewCell.xib */,
+				AF5E639E22B7667A00B10A08 /* YXWClassTableViewCell.h */,
+				AF5E639F22B7667B00B10A08 /* YXWClassTableViewCell.m */,
+				AF6DA7EE25B16E15002ABB98 /* YXWNibTableViewHeaderView.h */,
+				AF6DA7EF25B16E15002ABB98 /* YXWNibTableViewHeaderView.m */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
+		AF51028D25B57F9600847B0A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AF51029825B57FCC00847B0A /* YXWCLModel.h */,
+				AF51029925B57FCC00847B0A /* YXWCLModel.m */,
+				AF5102A225B5802B00847B0A /* YXWCLClassModel.h */,
+				AF5102A325B5802B00847B0A /* YXWCLClassModel.m */,
+				AF5102AC25B5806900847B0A /* YXWClHeaderViewModel.h */,
+				AF5102AD25B5806900847B0A /* YXWClHeaderViewModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AF51028E25B57F9C00847B0A /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				AF51028F25B57FBD00847B0A /* YXWCLCell.h */,
+				AF51029025B57FBD00847B0A /* YXWCLCell.m */,
+				AF51029125B57FBD00847B0A /* YXWCLCell.xib */,
+				AF51029D25B5801A00847B0A /* YXWCLClassCell.h */,
+				AF51029E25B5801A00847B0A /* YXWCLClassCell.m */,
+				AF5102A725B5805500847B0A /* YXWClHeaderView.h */,
+				AF5102A825B5805500847B0A /* YXWClHeaderView.m */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
 		AF5E63A122B7673B00B10A08 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,7 +330,7 @@
 				6003F586195388D20070C39A /* Sources */,
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
-				377284F8E69E25EC3D1B8A1E /* [CP] Embed Pods Frameworks */,
+				66057C176A5E343F3F724006 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -283,7 +366,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = YXW;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "原晓文";
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
@@ -322,6 +405,7 @@
 				AF5E63A822B76B6C00B10A08 /* YXWNibTableViewCell.xib in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
+				AF51029325B57FBD00847B0A /* YXWCLCell.xib in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
@@ -338,24 +422,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		377284F8E69E25EC3D1B8A1E /* [CP] Embed Pods Frameworks */ = {
+		66057C176A5E343F3F724006 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-YXWListBinder_Example/Pods-YXWListBinder_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/ReactiveCocoa/ReactiveCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/YXWListBinder/YXWListBinder.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-YXWListBinder_Example/Pods-YXWListBinder_Example-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/YXWListBinder/YXWListBinder.bundle",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YXWListBinder.framework",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/YXWListBinder.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YXWListBinder_Example/Pods-YXWListBinder_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YXWListBinder_Example/Pods-YXWListBinder_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F7A68FF1269DA56B35B593E4 /* [CP] Check Pods Manifest.lock */ = {
@@ -383,13 +465,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF5102A925B5805500847B0A /* YXWClHeaderView.m in Sources */,
+				AF51029F25B5801A00847B0A /* YXWCLClassCell.m in Sources */,
 				6003F59E195388D20070C39A /* YXWAppDelegate.m in Sources */,
 				AF6DA7F525B18736002ABB98 /* YXWNibHeaderModel.m in Sources */,
 				AF5E639822B765E300B10A08 /* YXWViewModel.m in Sources */,
+				AF51029A25B57FCC00847B0A /* YXWCLModel.m in Sources */,
 				AF5E63A722B7675A00B10A08 /* YXWNibModel.m in Sources */,
+				AF5102AE25B5806900847B0A /* YXWClHeaderViewModel.m in Sources */,
 				AF6DA7F025B16E15002ABB98 /* YXWNibTableViewHeaderView.m in Sources */,
 				AF5E63A422B7674F00B10A08 /* YXWClassModel.m in Sources */,
+				AF51028425B57E1500847B0A /* YXWCLViewModel.m in Sources */,
 				AF5E639C22B7666A00B10A08 /* YXWNibTableViewCell.m in Sources */,
+				AF5102A425B5802B00847B0A /* YXWCLClassModel.m in Sources */,
+				AF51029225B57FBD00847B0A /* YXWCLCell.m in Sources */,
+				AF51027925B57DDB00847B0A /* YXWCLViewController.m in Sources */,
 				AF5E63A022B7667B00B10A08 /* YXWClassTableViewCell.m in Sources */,
 				6003F5A7195388D20070C39A /* YXWViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
@@ -446,6 +536,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -464,6 +555,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -488,7 +580,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -499,6 +591,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -517,6 +610,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -534,7 +628,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

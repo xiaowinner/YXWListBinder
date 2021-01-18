@@ -17,5 +17,16 @@
 - (NSString *)identifier {
     return @"YXWNibTableViewCell";
 }
+
+- (YXWLineType)lineType {
+    return LineRow;
+}
+
+
+- (id)showWidget {
+    UINib *aNib = [UINib nibWithNibName:@"YXWNibTableViewCell" bundle:[NSBundle mainBundle]];
+    return aNib;
+}
+
     
 @end

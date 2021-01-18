@@ -18,4 +18,8 @@
     return @"YXWNibTableViewHeaderView";
 }
 
+- (id)showWidget {
+    return @"YXWNibTableViewHeaderView";
+}
+
 @end

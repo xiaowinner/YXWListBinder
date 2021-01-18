@@ -17,5 +17,14 @@
 - (NSString *)identifier {
     return @"YXWClassTableViewCell";
 }
+
+- (YXWLineType)lineType {
+    return LineRow;
+}
+
+- (id)showWidget {
+    return @"YXWClassTableViewCell";
+}
+
     
 @end

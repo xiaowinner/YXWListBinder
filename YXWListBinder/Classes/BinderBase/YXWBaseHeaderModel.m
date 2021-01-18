@@ -30,13 +30,13 @@
     return self.realSubDatas[index];
 }
 
-//已废弃
-- (void)exchangeViewModelDatas {
-    self.subData = [self.subDataCache mutableCopy];
-}
-
 - (void)exchangeViewModelRealDatas {
     self.realSubDatas = [self.subData mutableCopy];
 }
+
+- (id)showWidget {
+    return nil;
+}
+
 
 @end

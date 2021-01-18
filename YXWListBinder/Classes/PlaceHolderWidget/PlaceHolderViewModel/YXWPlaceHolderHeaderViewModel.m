@@ -1,4 +1,6 @@
 #import "YXWPlaceHolderHeaderViewModel.h"
+#import "YXWPlaceHolderHeaderView.h"
+#import "UIView+YXWBinder.h"
 
 @implementation YXWPlaceHolderHeaderViewModel
 
@@ -22,6 +24,10 @@
 
 - (NSString *)identifier {
     return @"YXWPlaceHolderHeaderView";
+}
+
+- (id)showWidget {
+    return [YXWPlaceHolderHeaderView nibFromYXWListBinder];
 }
 
 - (CGFloat)widgetHeight {

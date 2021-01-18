@@ -6,6 +6,8 @@
 //
 
 #import "YXWPlaceHolderImageViewModel.h"
+#import "UIView+YXWBinder.h"
+#import "YXWPlaceHolderImageCell.h"
 
 @implementation YXWPlaceHolderImageViewModel
 
@@ -15,6 +17,15 @@
 
 - (CGFloat)widgetHeight {
     return 100.f;
+}
+
+- (YXWLineType)lineType {
+    return LineRow;
+}
+
+
+- (id)showWidget {
+    return [YXWPlaceHolderImageCell nibFromYXWListBinder];
 }
 
 @end

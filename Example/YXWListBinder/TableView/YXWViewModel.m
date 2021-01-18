@@ -62,7 +62,7 @@
         
         self.headerModel.subData = [NSMutableArray arrayWithObjects:aModel,bModel,cModel,dModel,eModel,fModel,gModel,hModel,iModel,jModel, nil];
         [subscriber sendNext:self.data];
-        
+        [subscriber sendCompleted];
         return nil;
     }];
 }

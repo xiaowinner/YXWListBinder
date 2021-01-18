@@ -17,14 +17,8 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UICollectionView *collectionView;
 
-@property (nonatomic, strong) RACCommand *commend;
+@property (nonatomic, strong) RACCommand *command;
 @property (nonatomic, assign) BOOL hasSection;
-
-@property (nonatomic, copy) NSArray *tableViewPlaceHolderCells;
-@property (nonatomic, copy) NSArray *tableViewPlaceHolderHeaders;
-
-@property (nonatomic, copy) NSArray *tableViewPlaceHolderCellNames;
-@property (nonatomic, copy) NSArray *tableViewPlaceHolderHeaderNames;
 
 /**
  请求成功的 Block
@@ -41,105 +35,57 @@
 @implementation YXWListBinder
 
 #pragma mark InitCollectionViewBinder
-- (instancetype)initBinder:(UICollectionView *)collectionView commend:(RACCommand *)commend {
+- (instancetype)initBinderWithCollectionView:(UICollectionView *)collectionView hasSection:(BOOL)hasSection command:(RACCommand *)command {
     self = [super init];
     if (self) {
         _collectionView = collectionView;
-        _commend = commend;
+        _hasSection = hasSection;
+        _command = command;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
     }
     return self;
 }
 
-
-
-- (instancetype)initBinder:(UICollectionView *)collectionView
-                  nibsItem:(NSArray *)nibsItem
-                nibHeaders:(NSArray *)nibHeaders
-           itemIdentifiers:(NSArray *)itemIdentifiers
-         headerIdentifiers:(NSArray *)headerIdentifiers
-               dataCommand:(RACCommand *)dataCommand {
-    
-    self = [super init];
-    if (self) {
-        if (nibHeaders) {
-            _hasSection = YES;
-        }else {
-            _hasSection = NO;
-        }
-        
-        _collectionView = collectionView;
-        _commend = dataCommand;
-        _collectionView.delegate = self;
-        _collectionView.dataSource = self;
-        
-        @weakify(self);
-        [nibHeaders enumerateObjectsUsingBlock:^(UINib *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            @strongify(self);
-            if (idx < headerIdentifiers.count) {
-                [self.collectionView registerNib:obj forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerIdentifiers[idx]];
-            }
-        }];
-        
-        [nibsItem enumerateObjectsUsingBlock:^(UINib *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            @strongify(self);
-            if (idx < itemIdentifiers.count) {
-                [self.collectionView registerNib:obj forCellWithReuseIdentifier:itemIdentifiers[idx]];
-            }
-        }];
+- (void)registerCollectionCellWithItemViewModel:(id <YXWListBinderViewModelProtocol>)itemViewModel {
+    NSAssert([self judgeSelector:@selector(showWidget) object:itemViewModel], @"model的showWidget没实现,model:%@", itemViewModel);
+    NSAssert([self judgeSelector:@selector(identifier) object:itemViewModel], @"model的identifier没实现,model:%@", itemViewModel);
+    id cell = [itemViewModel showWidget];
+    NSString *identifier = [itemViewModel identifier];
+    if ([cell isKindOfClass:[NSString class]]) {
+        Class cellClass = NSClassFromString(cell);
+        [self.collectionView registerClass:cellClass forCellWithReuseIdentifier:identifier];
+    }else if ([cell isKindOfClass:[UINib class]]) {
+        [self.collectionView registerNib:cell forCellWithReuseIdentifier:identifier];
     }
-    return self;
 }
 
 
-- (instancetype)initBinder:(UICollectionView *)collectionView
-            itemClassNames:(NSArray *)itemClassNames
-          headerClassNames:(NSArray *)headerClassNames
-               dataCommand:(RACCommand *)dataCommand {
-    self = [super init];
-    if (self) {
-        
-        if (headerClassNames) {
-            _hasSection = YES;
-        }else {
-            _hasSection = NO;
-        }
-        
-        _collectionView = collectionView;
-        _commend = dataCommand;
-        _collectionView.delegate = self;
-        _collectionView.dataSource = self;
-        
-        @weakify(self);
-        [headerClassNames enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL * _Nonnull stop) {
-            @strongify(self);
-            Class headerClass = NSClassFromString(name);
-            [self.collectionView registerClass:headerClass forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass(headerClass)];
-        }];
-        
-        [itemClassNames enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL * _Nonnull stop) {
-            @strongify(self);
-            Class itemClass = NSClassFromString(name);
-            [self.collectionView registerClass:itemClass forCellWithReuseIdentifier:NSStringFromClass(itemClass)];
-        }];
+- (void)registerCollectionViewHeaderFooterWithSectionViewModel:(id <YXWListBinderViewModelProtocol>)sectionViewModel viewKind:(NSString *)viewKind {
+    NSAssert([self judgeSelector:@selector(showWidget) object:sectionViewModel], @"model的showWidget没实现,model:%@", sectionViewModel);
+    NSAssert([self judgeSelector:@selector(identifier) object:sectionViewModel], @"model的identifier没实现,model:%@", sectionViewModel);
+    id section = [sectionViewModel showWidget];
+    NSString *identifier = [sectionViewModel identifier];
+    if ([section isKindOfClass:[NSString class]]) {
+        Class sectionClass = NSClassFromString(section);
+        [self.collectionView registerClass:sectionClass forSupplementaryViewOfKind:viewKind withReuseIdentifier:identifier];
+    }else if ([section isKindOfClass:[UINib class]]) {
+        [self.collectionView registerNib:section forSupplementaryViewOfKind:viewKind withReuseIdentifier:identifier];
     }
-    return self;
 }
-
 
 #pragma mark InitTableViewBinder
-- (instancetype)initBinder:(UITableView *)tableView command:(RACCommand *)command {
+- (instancetype)initBinderWithTableView:(UITableView *)tableView hasSection:(BOOL)hasSection command:(RACCommand *)command {
     self = [super init];
     if (self) {
         _tableView = tableView;
-        _commend = command;
+        _hasSection = hasSection;
+        _command = command;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.estimatedRowHeight = 0;
         _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
-
         if (@available(iOS 11.0, *)) {
             self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         } else {
@@ -150,230 +96,41 @@
 }
 
 
-- (instancetype)initBinder:(UITableView *)tableView
-                  nibsCell:(NSArray *)nibsCell
-          nibHeaderFooters:(NSArray *)nibHeaderFooters
-           cellIdentifiers:(NSArray *)cellIdentifiers
-   headerFooterIdentifiers:(NSArray *)headerFooterIdentifiers
-               dataCommand:(RACCommand *)dataCommand {
-    self = [super init];
-    if (self) {
-        
-        if (nibHeaderFooters) {
-            _hasSection = YES;
-        }else {
-            _hasSection = NO;
-        }
-        
-        _tableView = tableView;
-        _commend = dataCommand;
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        _tableView.estimatedRowHeight = 0;
-        _tableView.estimatedSectionHeaderHeight = 0;
-        _tableView.estimatedSectionFooterHeight = 0;
-        
-        if (@available(iOS 11.0, *)) {
-            self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        } else {
-            
-        }
-        
-        //外部控件注册
-        @weakify(self);
-        [nibHeaderFooters enumerateObjectsUsingBlock:^(UINib *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            @strongify(self);
-            if (idx < headerFooterIdentifiers.count) {
-                [self.tableView registerNib:obj forHeaderFooterViewReuseIdentifier:headerFooterIdentifiers[idx]];
-            }
-        }];
-        
-        [nibsCell enumerateObjectsUsingBlock:^(UINib *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            @strongify(self);
-            if (idx < cellIdentifiers.count) {
-                [self.tableView registerNib:obj
-                     forCellReuseIdentifier:cellIdentifiers[idx]];
-            }
-        }];
-        
-        //内部控件注册
-        [self.tableViewPlaceHolderHeaders enumerateObjectsUsingBlock:^(UINib *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            @strongify(self);
-            if (idx < self.tableViewPlaceHolderHeaderNames.count) {
-                [self.tableView registerNib:obj forHeaderFooterViewReuseIdentifier:self.tableViewPlaceHolderHeaderNames[idx]];
-            }
-        }];
-        
-        [self.tableViewPlaceHolderCells enumerateObjectsUsingBlock:^(UINib *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            @strongify(self);
-            if (idx < self.tableViewPlaceHolderCellNames.count) {
-                [self.tableView registerNib:obj forCellReuseIdentifier:self.tableViewPlaceHolderCellNames[idx]];
-            }
-        }];
-    }
-    return self;
-}
-
-- (instancetype)initBinder:(UITableView *)tableView
-            cellClassNames:(NSArray *)cellClassNames
-    headerFooterClassNames:(NSArray *)headerFooterClassNames
-               dataCommand:(RACCommand *)dataCommand {
-    self = [super init];
-    if (self) {
-        
-        if (headerFooterClassNames) {
-            _hasSection = YES;
-        }else {
-            _hasSection = NO;
-        }
-        
-        _tableView = tableView;
-        _commend = dataCommand;
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        _tableView.estimatedRowHeight = 0;
-        _tableView.estimatedSectionHeaderHeight = 0;
-        _tableView.estimatedSectionFooterHeight = 0;
-        if (@available(iOS 11.0, *)) {
-            _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        } else {
-            // Fallback on earlier versions
-        }
-        
-        //外部
-        @weakify(self);
-        [headerFooterClassNames enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL * _Nonnull stop) {
-            @strongify(self);
-            Class headerClass = NSClassFromString(name);
-            [self.tableView registerClass:headerClass forHeaderFooterViewReuseIdentifier:NSStringFromClass(headerClass)];
-        }];
-        
-        [cellClassNames enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL * _Nonnull stop) {
-            @strongify(self);
-            Class cellClass = NSClassFromString(name);
-            [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
-        }];
-        
-        //内部
-        [self.tableViewPlaceHolderHeaderNames enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL * _Nonnull stop) {
-            @strongify(self);
-            Class headerClass = NSClassFromString(name);
-            [self.tableView registerClass:headerClass forHeaderFooterViewReuseIdentifier:NSStringFromClass(headerClass)];
-        }];
-        
-        [self.tableViewPlaceHolderCellNames enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL * _Nonnull stop) {
-            @strongify(self);
-            Class cellClass = NSClassFromString(name);
-            [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
-        }];
-    }
-    return self;
-}
-    
-    
-- (instancetype)initBinder:(UITableView *)tableView
-                     cells:(NSArray *)cells
-             headerFooters:(NSArray *)headerFooters
-           cellIdentifiers:(NSArray *)cellIdentifiers
-   headerFooterIdentifiers:(NSArray *)headerFooterIdentifiers
-               dataCommand:(RACCommand *)dataCommand {
-    self = [super init];
-    if (self) {
-        if (headerFooters) {
-            _hasSection = YES;
-        }else {
-            _hasSection = NO;
-        }
-        _tableView = tableView;
-        _commend = dataCommand;
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        _tableView.estimatedRowHeight = 0;
-        _tableView.estimatedSectionHeaderHeight = 0;
-        _tableView.estimatedSectionFooterHeight = 0;
-        if (@available(iOS 11.0, *)) {
-            _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        } else {
-            // Fallback on earlier versions
-        }
-        
-        //外部
-        @weakify(self);
-        [headerFooters enumerateObjectsUsingBlock:^(id headerFooter, NSUInteger idx, BOOL * _Nonnull stop) {
-            @strongify(self);
-            if ([headerFooter isKindOfClass:[NSString class]]) {
-                Class headerClass = NSClassFromString(headerFooter);
-                [self.tableView registerClass:headerClass forHeaderFooterViewReuseIdentifier:NSStringFromClass(headerClass)];
-            }else if ([headerFooter isKindOfClass:[UINib class]]) {
-                if (idx < headerFooterIdentifiers.count) {
-                    [self.tableView registerNib:(UINib *)headerFooter forHeaderFooterViewReuseIdentifier:headerFooterIdentifiers[idx]];
-                }
-            }
-        }];
-        
-        [cells enumerateObjectsUsingBlock:^(id cell, NSUInteger idx, BOOL * _Nonnull stop) {
-            @strongify(self);
-            if ([cell isKindOfClass:[NSString class]]) {
-                Class cellClass = NSClassFromString(cell);
-                [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
-            }else if ([cell isKindOfClass:[UINib class]]) {
-                if (idx < cellIdentifiers.count) {
-                    [self.tableView registerNib:cell
-                         forCellReuseIdentifier:cellIdentifiers[idx]];
-                }
-            }
-        }];
-        
-        //内部控件注册
-        [self.tableViewPlaceHolderHeaders enumerateObjectsUsingBlock:^(UINib *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            @strongify(self);
-            if (idx < self.tableViewPlaceHolderHeaderNames.count) {
-                [self.tableView registerNib:obj forHeaderFooterViewReuseIdentifier:self.tableViewPlaceHolderHeaderNames[idx]];
-            }
-        }];
-        
-        [self.tableViewPlaceHolderCells enumerateObjectsUsingBlock:^(UINib *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            @strongify(self);
-            if (idx < self.tableViewPlaceHolderCellNames.count) {
-                [self.tableView registerNib:obj forCellReuseIdentifier:self.tableViewPlaceHolderCellNames[idx]];
-            }
-        }];
-    }
-    return self;
-}
-
-
-- (void)registerTableViewCellWithDatas:(NSArray *)datas {
-    SEL lineSel = @selector(lineType);
-    for (id <YXWListBinderViewModelProtocol> model in datas) {
-        YXWLineType type = LineRow;
-        if ([((NSObject *)model) respondsToSelector:lineSel]) {
-            type = [model lineType];
-        }
-        
-        if (type == LineRow) {
-            
-        }else if (type == LineSection) {
-            
-        }else {
-            return;
-        }
+- (void)registerTableViewCellWithCellViewModel:(id <YXWListBinderViewModelProtocol>)cellViewModel {
+    NSAssert([self judgeSelector:@selector(showWidget) object:cellViewModel], @"model的showWidget没实现,model:%@", cellViewModel);
+    NSAssert([self judgeSelector:@selector(identifier) object:cellViewModel], @"model的identifier没实现,model:%@", cellViewModel);
+    id cell = [cellViewModel showWidget];
+    NSString *identifier = [cellViewModel identifier];
+    if ([cell isKindOfClass:[NSString class]]) {
+        Class cellClass = NSClassFromString(cell);
+        [self.tableView registerClass:cellClass forCellReuseIdentifier:identifier];
+    }else if ([cell isKindOfClass:[UINib class]]) {
+        [self.tableView registerNib:cell forCellReuseIdentifier:identifier];
     }
 }
 
-- (void)registerCollectionViewCellWithDatas:(NSArray *)datas {
-    
+- (void)registerTableViewHeaderFooterWithSectionViewModel:(id <YXWListBinderViewModelProtocol>)sectionViewModel {
+    NSAssert([self judgeSelector:@selector(showWidget) object:sectionViewModel], @"model的showWidget没实现,model:%@", sectionViewModel);
+    NSAssert([self judgeSelector:@selector(identifier) object:sectionViewModel], @"model的identifier没实现,model:%@", sectionViewModel);
+    id section = [sectionViewModel showWidget];
+    NSString *identifier = [sectionViewModel identifier];
+    if ([section isKindOfClass:[NSString class]]) {
+        Class sectionClass = NSClassFromString(section);
+        [self.tableView registerClass:sectionClass forHeaderFooterViewReuseIdentifier:identifier];
+    }else if ([section isKindOfClass:[UINib class]]) {
+        [self.tableView registerNib:section forHeaderFooterViewReuseIdentifier:identifier];
+    }
 }
 
 #pragma mark Util Method
 - (void)addTableViewDatasSubscribe:(YXWListRefreshSuccessBlock)successBlock errorSubcribe:(YXWListRefreshErrorBlock)errorSubcribe {
-    if (!self.commend) {
+    if (!self.command) {
         return;
     }
     self.refreshSuccessBlock = successBlock;
     self.refreshErrorBlock = errorSubcribe;
     @weakify(self);
-    [self.commend.executionSignals subscribeNext:^(RACSignal *execution) {
+    [self.command.executionSignals subscribeNext:^(RACSignal *execution) {
         [[[[[execution dematerialize] deliverOn:[RACScheduler scheduler]] map:^id(NSArray *value) {
             [value enumerateObjectsUsingBlock:^(id<YXWListBinderViewModelProtocol> obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 if (obj && [(NSObject *)obj respondsToSelector:@selector(exchangeViewModelRealDatas)]) {
@@ -402,13 +159,13 @@
 }
 
 - (void)addCollectionViewDatasSubscribe:(YXWListRefreshSuccessBlock)successBlock errorSubcribe:(YXWListRefreshErrorBlock)errorSubcribe {
-    if (!self.commend) {
+    if (!self.command) {
         return;
     }
     self.refreshSuccessBlock = successBlock;
     self.refreshErrorBlock = errorSubcribe;
     @weakify(self);
-    [self.commend.executionSignals subscribeNext:^(RACSignal *execution) {
+    [self.command.executionSignals subscribeNext:^(RACSignal *execution) {
         [[[[[execution dematerialize] deliverOn:[RACScheduler scheduler]] map:^id(NSArray *value) {
             [value enumerateObjectsUsingBlock:^(id<YXWListBinderViewModelProtocol> obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 if (obj && [(NSObject *)obj respondsToSelector:@selector(exchangeViewModelRealDatas)]) {
@@ -631,7 +388,9 @@
     id <YXWListBinderViewModelProtocol> itemViewModel = [self gainCurrentViewModel:indexPath
                                                                               type:LineRow];
     NSAssert([self judgeSelector:@selector(identifier) object:itemViewModel], @"model的identifier参数不正确,model:%@",itemViewModel);
+    [self registerCollectionCellWithItemViewModel:itemViewModel];
     id <YXWListBinderWidgetProtocol> item = [collectionView dequeueReusableCellWithReuseIdentifier:[itemViewModel identifier] forIndexPath:indexPath];
+    
     SEL bindSel = @selector(bindViewModel:atIndexPath:);
     SEL bindExtSel = @selector(bindViewModel:atIndexPath:first:finally:extra:);
     SEL bindExtSectionSel = @selector(bindViewModel:sectionViewModel:atIndexPath:first:finally:extra:);
@@ -669,6 +428,7 @@
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if (self.hasSection && kind == UICollectionElementKindSectionHeader) {
         id <YXWListBinderViewModelProtocol> headerViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForRow:0 inSection:indexPath.section] type:LineSection];
+        [self registerCollectionViewHeaderFooterWithSectionViewModel:headerViewModel viewKind:UICollectionElementKindSectionHeader];
         id <YXWListBinderWidgetProtocol> header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[headerViewModel identifier] forIndexPath:indexPath];
         SEL bindSel = @selector(bindViewModel:atIndexPath:);
         if ([(UICollectionReusableView *)header respondsToSelector:bindSel]) {
@@ -815,10 +575,14 @@
     
     id <YXWListBinderViewModelProtocol> cellSectionViewModel = [self gainCurrentSectionViewModel:indexPath];
     
-    NSAssert([self judgeSelector:@selector(identifier) object:cellViewModel], @"model的identifier参数不正确,model:%@",cellViewModel);
-    id <YXWListBinderWidgetProtocol> cell =
-    [tableView dequeueReusableCellWithIdentifier:[cellViewModel identifier]
-                                    forIndexPath:indexPath];
+    NSAssert([self judgeSelector:@selector(identifier) object:cellViewModel], @"model的identifier没实现,model:%@", cellViewModel);
+
+    id <YXWListBinderWidgetProtocol> cell = [tableView dequeueReusableCellWithIdentifier:[cellViewModel identifier]];
+    
+    if (!cell) {
+        [self registerTableViewCellWithCellViewModel:cellViewModel];
+        cell = [tableView dequeueReusableCellWithIdentifier:[cellViewModel identifier] forIndexPath:indexPath];
+    }
     
     BOOL last = [self gainLastJudgeWithIndexPath:indexPath type:LineRow];
     BOOL first = indexPath.row == 0 ? : NO;
@@ -836,8 +600,14 @@
     if (self.hasSection) {
         id <YXWListBinderViewModelProtocol> headerViewModel = [self gainCurrentViewModel:[NSIndexPath indexPathForRow:0 inSection:section] type:LineSection];
         NSAssert([self judgeSelector:@selector(identifier) object:headerViewModel], @"model的identifier参数不正确,model:%@",headerViewModel);
-        id <YXWListBinderWidgetProtocol> header =
-        [tableView dequeueReusableHeaderFooterViewWithIdentifier:[headerViewModel identifier]];
+        
+        id <YXWListBinderWidgetProtocol> header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:[headerViewModel identifier]];
+        
+        if (!header) {
+            [self registerTableViewHeaderFooterWithSectionViewModel:headerViewModel];
+            header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:[headerViewModel identifier]];
+        }
+        
         SEL bindSel = @selector(bindViewModel:atIndexPath:);
         SEL bindExtSel = @selector(bindViewModel:atIndexPath:first:finally:extra:);
         SEL bindExtSectionSel = @selector(bindViewModel:sectionViewModel:atIndexPath:first:finally:extra:);
@@ -957,48 +727,6 @@
         _needAnimation = NO;
     }
     return _needAnimation;
-}
-
-- (NSArray *)tableViewPlaceHolderCells {
-    if (!_tableViewPlaceHolderCells) {
-        _tableViewPlaceHolderCells = @[
-                                       [YXWTitleImagePlaceHolderCell nibFromYXWListBinder],
-                                       [YXWPlaceHolderImageCell nibFromYXWListBinder],
-                                       [YXWTitlePlaceHolderCell nibFromYXWListBinder],
-                                       [YXWWhitePlaceHolderCell nibFromYXWListBinder],
-                                       ];
-    }
-    return _tableViewPlaceHolderCells;
-}
-
-- (NSArray *)tableViewPlaceHolderHeaders {
-    if (!_tableViewPlaceHolderHeaders) {
-        _tableViewPlaceHolderHeaders = @[
-                                         [YXWPlaceHolderHeaderView nibFromYXWListBinder],
-                                         ];
-    }
-    return _tableViewPlaceHolderHeaders;
-}
-
-- (NSArray *)tableViewPlaceHolderCellNames {
-    if (!_tableViewPlaceHolderCellNames) {
-        _tableViewPlaceHolderCellNames = @[
-                                           @"YXWTitleImagePlaceHolderCell",
-                                           @"YXWPlaceHolderImageCell",
-                                           @"YXWTitlePlaceHolderCell",
-                                           @"YXWWhitePlaceHolderCell",
-                                           ];
-    }
-    return _tableViewPlaceHolderCellNames;
-}
-
-- (NSArray *)tableViewPlaceHolderHeaderNames {
-    if (!_tableViewPlaceHolderHeaderNames) {
-        _tableViewPlaceHolderHeaderNames = @[
-                                             @"YXWPlaceHolderHeaderView",
-                                             ];
-    }
-    return _tableViewPlaceHolderHeaderNames;
 }
 
 - (NSDictionary *)extra {
