@@ -17,8 +17,8 @@
 
 - 头文件声明
 ``` objective-c
-	#import <YXWListBinder/YXWListBinder.h>
-	#import <YXWListBinder/YXWListBinderKit.h>
+#import <YXWListBinder/YXWListBinder.h>
+#import <YXWListBinder/YXWListBinderKit.h>
 ```
 
 ```objective-c
@@ -49,9 +49,9 @@
         return nil;
     }];
 }
-    
+```
 
-
+```objective-c
 /*
 二、在控制器ViewDidLoad初始化ViewModel、TableView、YXWListBinder
 */
@@ -59,19 +59,21 @@
 {
     [super viewDidLoad];
 
-	  //初始化Binder
+    //初始化Binder
     self.tableViewBinder = [[YXWListBinder alloc] initBinderWithTableView:self.tableView hasSection:YES command:self.viewModel.dataCommand];
     
     [self.tableViewBinder addTableViewDatasSubscribe:^{
-        //数据刷新完成后....
+    //数据刷新完成后....
     } errorSubcribe:^(NSError *error) {
-				//请求错误...
+    //请求错误...
     }];
 
   	//触发viewmodel中的数据请求
     [self.viewModel.dataCommand execute:@(1)];
 }
+```
 
+```objective-c
 /*
 三、Cell中实现bindViewModel方法，绑定数据源.
 */
@@ -81,6 +83,9 @@
                 first:(BOOL)first
               finally:(BOOL)finally
                 extra:(NSDictionary *)extra;
+```
+
+```objective-c
 /*
 CellModel必须实现的协议.
 */
