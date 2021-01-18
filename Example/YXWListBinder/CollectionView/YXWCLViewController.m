@@ -8,6 +8,7 @@
 
 #import "YXWCLViewController.h"
 #import "YXWCLViewModel.h"
+#import "YXWViewController.h"
 
 @interface YXWCLViewController ()
 
@@ -21,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     self.viewModel = [[YXWCLViewModel alloc] init];
     
     CGFloat useWidth = [UIScreen mainScreen].bounds.size.width;
@@ -46,8 +47,21 @@
     } errorSubcribe:^(NSError * _Nonnull error) {
         
     }];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(go) name:@"CLPUSH" object:nil];
 
     [self.viewModel.dataCommand execute:@(1)];
+}
+
+- (void)go {
+    YXWViewController *yvc = [YXWViewController new];
+    [self.navigationController pushViewController:yvc animated:YES];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    NSLog(@"CLVC释放了");
 }
 
 @end

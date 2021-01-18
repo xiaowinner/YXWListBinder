@@ -8,6 +8,12 @@
 
 #import "YXWClassTableViewCell.h"
 
+@interface YXWClassTableViewCell ()
+
+
+
+@end
+
 @implementation YXWClassTableViewCell
 
 - (void)awakeFromNib {
@@ -15,8 +21,17 @@
     [self.contentView setBackgroundColor:[UIColor blueColor]];
 }
 
-- (void)bindViewModel:(id<YXWListBinderViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath {
+- (void)bindViewModel:(id<YXWListBinderViewModelProtocol>)viewModel sectionViewModel:(id<YXWListBinderViewModelProtocol>)sectionViewModel atIndexPath:(NSIndexPath *)indexPath first:(BOOL)first finally:(BOOL)finally extra:(NSDictionary *)extra {
     
+}
+
+- (void)didSelectedCell:(id<YXWListBinderViewModelProtocol>)viewModel
+              tableView:(UITableView *)tableView
+            atIndexPath:(NSIndexPath *)indexPath
+                  first:(BOOL)first
+                finally:(BOOL)finally
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"TBPUSH" object:nil];
 }
     
 @end
