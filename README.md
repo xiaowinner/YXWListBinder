@@ -21,9 +21,9 @@
 #import <YXWListBinder/YXWListBinderKit.h>
 ```
 
+- 一、创建控制器的ViewModel,继承自YXWBaseViewModel
 ```objective-c
 /*
-一、创建控制器的ViewModel,继承自YXWBaseViewModel
 1.重写- (RACSignal *)requestData:(RACTuple *)tuple;
 2.初始化CellModel和HeaderModel(因HeaderModel要实现的协议较多，建议继承自YXWBaseHeaderModel)
 3.向self.data中塞入model，并发送出去.
@@ -51,10 +51,8 @@
 }
 ```
 
+- 二、在控制器ViewDidLoad初始化ViewModel、TableView、YXWListBinder
 ```objective-c
-/*
-二、在控制器ViewDidLoad初始化ViewModel、TableView、YXWListBinder
-*/
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -73,10 +71,8 @@
 }
 ```
 
+- 三、Cell中实现bindViewModel方法，绑定数据源.
 ```objective-c
-/*
-三、Cell中实现bindViewModel方法，绑定数据源.
-*/
 - (void)bindViewModel:(id<YXWListBinderViewModelProtocol>)viewModel
      sectionViewModel:(id<YXWListBinderViewModelProtocol>)sectionViewModel
           atIndexPath:(NSIndexPath *)indexPath
@@ -84,6 +80,7 @@
               finally:(BOOL)finally
                 extra:(NSDictionary *)extra;
 ```
+
 
 ```objective-c
 /*
