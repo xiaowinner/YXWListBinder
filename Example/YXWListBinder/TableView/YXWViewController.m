@@ -8,6 +8,7 @@
 
 #import "YXWViewController.h"
 #import "YXWViewModel.h"
+#import "YXWCLViewController.h"
 
 @interface YXWViewController ()
 
@@ -37,13 +38,23 @@
     } errorSubcribe:^(NSError *error) {
 
     }];
+    
+    self.tableViewBinder.extra = @{@"viewController":self};
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(go) name:@"TBPUSH" object:nil];
 
     [self.viewModel.dataCommand execute:@(1)];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)go {
+    YXWCLViewController *yvc = [YXWCLViewController new];
+    [self.navigationController pushViewController:yvc animated:YES];
+}
+
+- (void)dealloc
 {
-    [super didReceiveMemoryWarning];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    NSLog(@"TABLEVIEW释放了");
 }
 
 @end

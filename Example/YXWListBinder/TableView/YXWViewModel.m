@@ -43,24 +43,16 @@
         YXWNibModel *iModel = [YXWNibModel new];
         YXWNibModel *jModel = [YXWNibModel new];
 
+        
         self.headerModel.subData = [NSMutableArray arrayWithObjects:aModel,bModel,cModel,dModel,eModel,fModel,gModel,hModel,iModel,jModel, nil];
+
+        for (int i = 0; i<100; i++) {
+            YXWNibModel *tModel = [YXWNibModel new];
+            [self.headerModel.subData addObject:tModel];
+        }
+        
         self.data = [NSMutableArray arrayWithObjects:self.headerModel, nil];
         
-        [subscriber sendNext:self.data];
-        
-        self.headerModel.subData = nil;
-        [subscriber sendNext:self.data];
-        
-        self.headerModel.subData = [NSMutableArray arrayWithObjects:aModel,bModel,cModel,dModel,eModel,fModel,gModel,hModel,iModel,jModel, nil];
-        [subscriber sendNext:self.data];
-        
-        self.headerModel.subData = [NSMutableArray arrayWithObjects:aModel,bModel,cModel,dModel,eModel,fModel,gModel,hModel,iModel,jModel, nil];
-        [subscriber sendNext:self.data];
-        
-        self.headerModel.subData = nil;
-        [subscriber sendNext:self.data];
-        
-        self.headerModel.subData = [NSMutableArray arrayWithObjects:aModel,bModel,cModel,dModel,eModel,fModel,gModel,hModel,iModel,jModel, nil];
         [subscriber sendNext:self.data];
         [subscriber sendCompleted];
         return nil;

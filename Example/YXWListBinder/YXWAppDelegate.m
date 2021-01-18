@@ -7,11 +7,14 @@
 //
 
 #import "YXWAppDelegate.h"
+#import <DoraemonKit/DoraemonKit.h>
 
 @implementation YXWAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //在Main.storyboard切换控制器即可
+    [[DoraemonManager shareInstance] install];
     return YES;
 }
 

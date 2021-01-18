@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <YXWListBinder/YXWListBinder.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface YXWCLClassCell : UICollectionViewCell
+@interface YXWCLClassCell : UICollectionViewCell<YXWListBinderWidgetProtocol>
 
 @end
 
