@@ -7,7 +7,7 @@
 }
 
 - (CGFloat)widgetHeight {
-    return 0.1;
+    return CGFLOAT_MIN;
 }
 
 @end

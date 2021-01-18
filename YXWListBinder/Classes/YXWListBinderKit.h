@@ -12,6 +12,8 @@
 #import "YXWNormalBaseTabbleViewController.h"
 #import "YXWBaseHeaderModel.h"
 #import "YXWBaseViewModel.h"
+#import "NSBundle+YXWBinder.h"
+#import "UIView+YXWBinder.h"
 
 #endif /* YXWListBinderKit_h */
 

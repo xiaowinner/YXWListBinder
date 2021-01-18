@@ -1,4 +1,4 @@
-#import "YXWListBinder.h"
+#import "YXWListBinderViewModelProtocol.h"
 
 @interface YXWCollectionTitleImagePlaceHolderViewModel : NSObject<YXWListBinderViewModelProtocol>
 
@@ -7,5 +7,7 @@
 @property (nonatomic, assign) CGFloat height;
 
 @property (nonatomic, strong) NSString *imageName;
+
+@property (nonatomic, strong) UIImage *image;
 
 @end

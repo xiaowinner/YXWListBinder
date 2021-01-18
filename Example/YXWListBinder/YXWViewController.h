@@ -6,8 +6,11 @@
 //  Copyright (c) 2018 原晓文. All rights reserved.
 //
 
+#import <YXWListBinder/YXWListBinder.h>
+#import <YXWListBinder/YXWListBinderKit.h>
+
 @import UIKit;
 
-@interface YXWViewController : UIViewController
+@interface YXWViewController : YXWNormalBaseTabbleViewController
 
 @end

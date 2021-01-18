@@ -11,6 +11,7 @@
             @strongify(self);
             return [[self requestData:tuple] materialize];
         }];
+        _dataCommand.allowsConcurrentExecution = YES;
     }
     return self;
 }
@@ -27,7 +28,6 @@
 
 //CollectionView
 - (NSMutableArray *)collectionNormalPlaceHolderWith:(NSString *)title height:(CGFloat)height imageType:(YXWPlaceHolderImageType)imageType {
-    
     NSMutableArray *resultArray = [NSMutableArray array];
     YXWCollectionTitleImagePlaceHolderViewModel *titleImageViewModel = [[YXWCollectionTitleImagePlaceHolderViewModel alloc] init];
     titleImageViewModel.title = title;
@@ -35,11 +35,9 @@
     titleImageViewModel.imageName = [self gainImageNameWithType:imageType];
     [resultArray addObject:titleImageViewModel];
     return resultArray;
-    
 }
 
 - (NSMutableArray *)collectionHaveHeaderPlaceHolderWith:(NSString *)title height:(CGFloat)height imageType:(YXWPlaceHolderImageType)imageType {
-    
     NSMutableArray *resultArray = [NSMutableArray array];
     YXWCollectionPlaceHolderHeaderViewModel *headerViewModel = [[YXWCollectionPlaceHolderHeaderViewModel alloc] init];
     YXWCollectionTitleImagePlaceHolderViewModel *titleImageViewModel = [[YXWCollectionTitleImagePlaceHolderViewModel alloc] init];
@@ -49,7 +47,29 @@
     headerViewModel.subData = [NSMutableArray arrayWithArray:@[titleImageViewModel]];
     [resultArray addObject:headerViewModel];
     return resultArray;
-    
+}
+
+
+- (NSMutableArray *)collectionNormalPlaceHolderWith:(NSString *)title height:(CGFloat)height image:(UIImage *)image {
+    NSMutableArray *resultArray = [NSMutableArray array];
+    YXWCollectionTitleImagePlaceHolderViewModel *titleImageViewModel = [[YXWCollectionTitleImagePlaceHolderViewModel alloc] init];
+    titleImageViewModel.title = title;
+    titleImageViewModel.height = height;
+    titleImageViewModel.image = image;
+    [resultArray addObject:titleImageViewModel];
+    return resultArray;
+}
+
+- (NSMutableArray *)collectionHaveHeaderPlaceHolderWith:(NSString *)title height:(CGFloat)height image:(UIImage *)image {
+    NSMutableArray *resultArray = [NSMutableArray array];
+    YXWCollectionPlaceHolderHeaderViewModel *headerViewModel = [[YXWCollectionPlaceHolderHeaderViewModel alloc] init];
+    YXWCollectionTitleImagePlaceHolderViewModel *titleImageViewModel = [[YXWCollectionTitleImagePlaceHolderViewModel alloc] init];
+    titleImageViewModel.title = title;
+    titleImageViewModel.height = height;
+    titleImageViewModel.image = image;
+    headerViewModel.subData = [NSMutableArray arrayWithArray:@[titleImageViewModel]];
+    [resultArray addObject:headerViewModel];
+    return resultArray;
 }
 
 
@@ -104,6 +124,63 @@
             titleImageViewModel.title = title;
             titleImageViewModel.height = cellHeight;
             titleImageViewModel.imageName = [self gainImageNameWithType:imageType];
+            [resultArray addObject:titleImageViewModel];
+            return resultArray;
+        }
+            break;
+    }
+}
+
+- (NSMutableArray *)generateHaveHeaderPlaceHolderWith:(NSString *)title cellHeight:(CGFloat)cellHeight type:(YXWPlaceHolderType)type image:(UIImage *)image {
+    switch (type) {
+        case YXWPlaceHolderTitleType:
+        {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            YXWPlaceHolderHeaderViewModel *headerViewModel = [[YXWPlaceHolderHeaderViewModel alloc] init];
+            YXWTitlePlaceHolderViewModel *titleViewModel = [[YXWTitlePlaceHolderViewModel alloc] init];
+            titleViewModel.title = title;
+            titleViewModel.height = cellHeight;
+            headerViewModel.subData = [NSMutableArray arrayWithArray:@[titleViewModel]];
+            [resultArray addObject:headerViewModel];
+            return resultArray;
+        }
+            break;
+        case YXWPlaceHolderTitleAndImageType:
+        {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            YXWPlaceHolderHeaderViewModel *headerViewModel = [[YXWPlaceHolderHeaderViewModel alloc] init];
+            YXWTitleImagePlaceHolderViewModel *titleImageViewModel = [[YXWTitleImagePlaceHolderViewModel alloc] init];
+            titleImageViewModel.title = title;
+            titleImageViewModel.height = cellHeight;
+            titleImageViewModel.image = image;
+            headerViewModel.subData = [NSMutableArray arrayWithArray:@[titleImageViewModel]];
+            [resultArray addObject:headerViewModel];
+            return resultArray;
+        }
+            break;
+    }
+}
+
+
+- (NSMutableArray *)generateNormalPlaceHolderWith:(NSString *)title cellHeight:(CGFloat)cellHeight type:(YXWPlaceHolderType)type image:(UIImage *)image {
+    switch (type) {
+        case YXWPlaceHolderTitleType:
+        {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            YXWTitlePlaceHolderViewModel *titleViewModel = [[YXWTitlePlaceHolderViewModel alloc] init];
+            titleViewModel.title = title;
+            titleViewModel.height = cellHeight;
+            [resultArray addObject:titleViewModel];
+            return resultArray;
+        }
+            break;
+        case YXWPlaceHolderTitleAndImageType:
+        {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            YXWTitleImagePlaceHolderViewModel *titleImageViewModel = [[YXWTitleImagePlaceHolderViewModel alloc] init];
+            titleImageViewModel.title = title;
+            titleImageViewModel.height = cellHeight;
+            titleImageViewModel.image = image;
             [resultArray addObject:titleImageViewModel];
             return resultArray;
         }
