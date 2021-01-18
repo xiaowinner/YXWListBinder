@@ -2,4 +2,6 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 target 'YXWListBinder_Example' do
   pod 'YXWListBinder', :path => '../'
+  pod 'DoraemonKit/Core', '~> 1.1.4'
+  pod 'DoraemonKit/WithLogger', '~> 1.1.4'
 end
