@@ -42,12 +42,6 @@
     
     self.collectionBinder = [[YXWListBinder alloc] initBinderWithCollectionView:self.collectionView hasSection:YES command:self.viewModel.dataCommand];
     
-    [self.collectionBinder addCollectionViewDatasSubscribe:^{
-        
-    } errorSubcribe:^(NSError * _Nonnull error) {
-        
-    }];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(go) name:@"CLPUSH" object:nil];
 
     [self.viewModel.dataCommand execute:@(1)];

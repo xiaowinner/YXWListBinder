@@ -25,10 +25,10 @@
 /** 需要展示的cell高度*/
 - (CGFloat)widgetHeight;
 
+@optional
+
 /** 展示类型*/
 - (YXWLineType)lineType;
-
-@optional
 
 /** section专用，用于获取section子row的数量*/
 - (NSInteger)gainSubDataCount:(NSInteger)section;
