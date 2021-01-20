@@ -33,12 +33,6 @@
     
     self.tableViewBinder = [[YXWListBinder alloc] initBinderWithTableView:self.tableView hasSection:YES command:self.viewModel.dataCommand];
     
-    [self.tableViewBinder addTableViewDatasSubscribe:^{
-        
-    } errorSubcribe:^(NSError *error) {
-
-    }];
-    
     self.tableViewBinder.extra = @{@"viewController":self};
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(go) name:@"TBPUSH" object:nil];
