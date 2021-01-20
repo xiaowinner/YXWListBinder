@@ -66,7 +66,7 @@
     //请求错误...
     }];
 
-  	//触发viewmodel中的数据请求
+    //触发viewmodel中的数据请求
     [self.viewModel.dataCommand execute:@(1)];
 }
 ```
@@ -91,11 +91,7 @@ CellModel必须实现的协议.
 }
     
 - (NSString *)identifier {
-    return cell标识;
-}
-
-- (YXWLineType)lineType {
-    return 类型;
+    return 标识;
 }
 
 - (id)showWidget {
@@ -106,5 +102,5 @@ CellModel必须实现的协议.
 
 ## 🌗 理念
 
-- 我们大多数构建页面 基本都可以使用TableView 或者 CollectionView来实现，Binder的意义在于使用MVVM模式开发，更注重在viewmodel的数据流的控制来拼装页面的子视图，把viewcontroller只是作为一个通道。
+- 我们大多数构建页面 基本都可以使用TableView 或者 CollectionView来实现，Binder的意义在于使用MVVM模式开发，更注重在ViewModel的数据流的控制来拼装页面的子视图，把ViewController只是作为一个通道。
 
