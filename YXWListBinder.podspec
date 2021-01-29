@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YXWListBinder'
-  s.version          = '0.2.44'
+  s.version          = '0.2.45'
   s.summary          = 'List binder.'
 
   s.description      = <<-DESC
@@ -18,7 +18,7 @@ TODO: Add long description of the pod here.
   s.homepage         = 'https://github.com/xiaowinner/YXWListBinder'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { '原晓文' => 'yuanxiao225@icloud.com' }
-  s.source           = { :git => 'https://github.com/xiaowinner/YXWListBinder.git', :tag => s.version.to_s }
+  s.source           = { :git => 'http://gitlab.yintech.net/rjhy/app/base/ios/YXWListBinder.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '8.0'
 
