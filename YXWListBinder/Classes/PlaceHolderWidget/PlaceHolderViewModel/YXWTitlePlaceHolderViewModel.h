@@ -4,6 +4,8 @@
 
 @property (nonatomic, copy) NSString *title;
 
+@property (nonatomic, copy) NSAttributedString *atrTitle;
+
 @property (nonatomic, assign) CGFloat height;
 
 @end
